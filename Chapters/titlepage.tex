@@ -1,0 +1,47 @@
+% refer to https://tex.stackexchange.com/questions/209993/how-to-customize-my-titlepage for the proper way to do this.
+
+\begin{titlepage}
+%	\fontspec[Numbers = {Proportional,OldStyle}]{TeX Gyre Pagella}
+	\newgeometry{textwidth=.75\textwidth}
+%\begin{ddcenter}
+\centering
+% Title
+\vspace*{\fill} 
+
+\begin{varwidth}{\textwidth}
+	\centering
+	\fontsize{25}{25}\sffamily \bfseries\makeatletter\@title\par\makeatother
+\end{varwidth}
+
+\vspace{0.5in}
+{\Large\bfseries\makeatletter\@author\par\makeatother}
+
+
+% University Crest
+\vspace{1in}
+%\begin{figure}[htb]
+%\centering
+\includegraphics[width=.5\textwidth]{Bristol-uni-logo-colour}
+%\end{figure}
+\vspace{1in}
+
+% Declaration
+A dissertation submitted to the \mbox{University of Bristol} in accordance with the
+requirements for award of \mbox{the degree of \textbf{Doctor of Philosophy} in the
+\mbox{Faculty of Science}, \mbox{School of Geographical Sciences}.
+
+\vspace*{\fill}
+{\large\bfseries \today}
+
+\vspace*{\fill}
+%\input{wordcount/wordcount} words
+
+%\end{center}
+\vspace*{\fill}
+\end{titlepage}
+\restoregeometry
+
+\newpage
+\vspace*{\fill}
+\doclicenseThis
+
