@@ -1,73 +1,137 @@
+% vim: ft=tex ts=4 sw=4 et
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{UoBThesis}[2018/08/01 University of Bristol PhD Thesis Class]
 
-\RequriePackage{ifpdf,ifxetex,ifluatex}
-\iflualatex
+\newif\if@cclicense\@cclicensefalse
+\DeclareOption{cclicense}{\@cclicensetrue}
+\ProcessOptions\relax
+
+\RequirePackage{ifpdf,ifxetex,ifluatex}
+\ifluatex
 	\pdfvariable minorversion 7
 	\pdfvariable pageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
+    \pdfextension catalog{%
+        /OutputIntents [ <<
+        /Type /OutputIntent
+        /S/GTS_PDFA2
+        /DestOutputProfile \the\numexpr\pdffeedback lastobj\relax\space 0 R
+        /OutputConditionIdentifier (eciRGB v2)
+        /Info(eciRGB v2)
+        >> ]
+    }
+    %\RequirePackage[2015/01/01]{latexrelease}
+
 \else\ifpdf
 	\pdfminorversion 7
 	\pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
 \fi\fi
 
 %% PRELIMINARY DECLARATIONS
-\LoadClass[11pt,paper=a4]{scrbook}
+\LoadClass{scrbook}
 
 
-\usepackage{scrhack}
-\usepackage{scrlayer-scrpage}
-\usepackage{amsmath}
+\RequirePackage{scrhack}
+\RequirePackage{scrlayer-scrpage}
+\RequirePackage{amsmath}
 %\PassOptionsToPackage{pdfa}{hyperref}
-\AfterPackage!{hyperref}{\usepackage{hyperxmp}}
-\AfterPackage!{hyperref}{\usepackage[nameinlink]{cleveref}}
-\AfterPackage!{hyperref}{\usepackage{bookmark}}
+\AfterPackage!{hyperref}{\RequirePackage{hyperxmp}}
+\AfterPackage!{hyperref}{\RequirePackage[nameinlink]{cleveref}}
+\AfterPackage!{hyperref}{\RequirePackage{bookmark}}
 
 \ifluatex
-   \RequirePackage {fontspec,microtype}
+% Loading LuaTeX spefic packages
+    \RequirePackage {fontspec,microtype}
+    \defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
+    \setmainfont {Libertinus Serif}[
+        Numbers = {Proportional,OldStyle},
+        BoldFont= * bold ]
+    \setsansfont {LibertinusSans}[
+        Numbers = {Proportional,OldStyle} ]
+    \setmonofont {Inconsolata zi4}[
+        ItalicFont = *,
+        ItalicFeatures = FakeSlant,
+        RawFeature = -tlig;-trep,
+        StylisticSet={1,3} ]
+    \newfontfamily\libertinelf{Libertinus Serif}[
+        Numbers = {Proportional,Lining},
+        Ligatures = {TeX},
+        Scale = {MatchLowercase} ]
+    \RequirePackage[math-style=TeX]{unicode-math}
+    \setmathfont{Libertinus Math}
+
+    \RequirePackage {polyglossia}
+    \setdefaultlanguage[variant=british]{english}
+    \RequirePackage [english]{selnolig}
+    \RequirePackage {luatextra}
+%
 \else\ifxetex
-   \RequirePackage {fontspec,microtype}
+% Loading XeTeX specific packages
+    \RequirePackage {fontspec,microtype}
+    \defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
+    \setmainfont {Libertinus Serif}[
+        Numbers = {Proportional,OldStyle},
+        BoldFont= * bold ]
+    \setsansfont {Libertinus Sans}[
+        Numbers = {Proportional,OldStyle} ]
+    \setmonofont {Inconsolata zi4}[
+        ItalicFont = *,
+        ItalicFeatures = FakeSlant,
+        RawFeature = -tlig;-trep,
+        StylisticSet={1,3} ]
+    \newfontfamily\libertinelf{Libertinus Serif}[
+        Numbers = {Proportional,Lining},
+        Ligatures = {TeX},
+        Scale = {MatchLowercase} ]
+    \RequirePackage[math-style=TeX]{unicode-math}
+    \setmathfont{Libertinus Math}
+
+    \RequirePackage {polyglossia}
+    \setdefaultlanguage[variant=british]{english}
 \else
    \RequirePackage [T1]{fontenc}
    \RequirePackage [utf8]{inputenc}
-   \RequirePackage {libertinus}
-   \RequirePackage [narrow]{Inconsolata}
+   \RequirePackage {libertine}
+   \RequirePackage {libertinust1math}
+   \RequirePackage [narrow,varqu,varl]{inconsolata}
+   \RequirePackage [british]{babel}
 \fi\fi
 
-%\usepackage [protrusion=true,expansion]{microtype}
-\usepackage {typearea,geometry}
-\usepackage {needspace}
+%\RequirePackage [protrusion=true,expansion]{microtype}
+\RequirePackage {typearea,geometry}
+\RequirePackage {needspace}
 
-\usepackage {graphicx}
+\RequirePackage {graphicx}
+\graphicspath{{Images}}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
-\usepackage [nodisplayskipstretch]{setspace} %onehalfspacing or doublespacing are the options here
+\RequirePackage [nodisplayskipstretch]{setspace} %onehalfspacing or doublespacing are the options here
 \setstretch{1.20}
-\usepackage {xcolor}
-\usepackage [final]{changes}
-\usepackage {luatextra}
-\usepackage {multicol}
-\usepackage {multirow}
-\usepackage {booktabs}
-%\usepackage [begintext={``} , endtext={''},vskip={\topsep}]{quoting}
-\usepackage {quoting}
-\usepackage {tabu}
+\RequirePackage {xcolor}
+\RequirePackage [final]{changes}
+\RequirePackage {multicol}
+\RequirePackage {multirow}
+\RequirePackage {booktabs}
+%\RequirePackage [begintext={``} , endtext={''},vskip={\topsep}]{quoting}
+\RequirePackage {quoting}
+\RequirePackage {tabu}
 \PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
-\usepackage {minted}
-\usepackage {etoolbox}
-\usepackage [version=4]{mhchem}
-\usepackage {siunitx,numprint}
+\RequirePackage {minted}
+\RequirePackage {etoolbox}
+\RequirePackage [version=4]{mhchem}
+\RequirePackage {siunitx,numprint}
 \ExplSyntaxOn
 \cs_new_eq:NN \siunitx_table_collect_begin:Nn \__siunitx_table_collect_begin:Nn
 \ExplSyntaxOff
-\usepackage {enumitem}
+\RequirePackage {enumitem}
 \setlist{nosep}
-\usepackage {varwidth}
-%\usepackage [multiple]{footmisc} % added to allow proper formation of multiple consecutive footnote %incompatible with hyperref
+\RequirePackage {varwidth}
+%\RequirePackage [multiple]{footmisc} % added to allow proper formation of multiple consecutive footnote %incompatible with hyperref
 
-\usepackage {float}
-\usepackage {hyphenat}
+\RequirePackage {float}
+\RequirePackage {hyphenat}
 
-\usepackage[mode=tex]{standalone}
-\usepackage{xstring}
+\RequirePackage[mode=tex]{standalone}
+\RequirePackage{xstring}
 
 \newcommand{\includestandalonewithpath}[2][]{%
     \begingroup%
@@ -81,16 +145,14 @@
 \floatplacement{table}{t!}
 \floatplacement{listing}{t!}
 
-\usepackage {polyglossia}
-\setdefaultlanguage[variant=british]{english}
+\RequirePackage {xfrac}
 
-\usepackage [english]{selnolig}
-\usepackage [british,calc]{datetime2}
+\RequirePackage [british,calc]{datetime2}
 \DTMlangsetup[en-GB]{ord=raise}
-\usepackage [autostyle,english=british]{csquotes}
-\usepackage {caption,subcaption}
-\usepackage {verse}
-%\usepackage [british,iso]{isodate}
+\RequirePackage [autostyle,english=british]{csquotes}
+\RequirePackage {caption,subcaption}
+\RequirePackage {verse}
+%\RequirePackage [british,iso]{isodate}
 
 %\captionsetup[subfigure]{subrefformat=simple,labelformat=simple,listofformat=subsimple}
 %\renewcommand\thesubfigure{(\alph{subfigure})}
@@ -100,32 +162,21 @@
     font          = small,
 }
 \captionsetup[listing]{skip=10pt}
-\usepackage{xcolor} 
-%\usepackage{titlesec,scalefnt}
-\usepackage{scalefnt}
-\usepackage{bytefield}
-\usepackage{ragged2e}
-\usepackage{relsize}
-%\usepackage [smaller]{acronym}
+\RequirePackage{xcolor} 
+%\RequirePackage{titlesec,scalefnt}
+\RequirePackage{scalefnt}
+\RequirePackage{bytefield}
+\RequirePackage{ragged2e}
+\RequirePackage{relsize}
+%\RequirePackage [smaller]{acronym}
 
 \newcommand\TODO{{\color{red}\bfseries TODO}}
-\usepackage{flafter} % places floats after they are first mentioned if possible
-%\usepackage [draft]{hyperref}
-\usepackage {hyperref}
-\usepackage {algorithm}
-\usepackage {algorithmicx}
-\usepackage {algpseudocode} 
-\defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
-%\newfontfeature{Microtype}{protrusion=default;expansion=default;}
-\setmainfont [Numbers = {Proportional,OldStyle}, BoldFont= * bold]{Minion Pro}
-\setsansfont[Numbers = {Proportional,OldStyle}]{LibertinusSans}
-\setmonofont[ItalicFont = *, ItalicFeatures = FakeSlant, RawFeature = -tlig;-trep, StylisticSet={1,3}]{Inconsolata zi4}
-\usepackage {xfrac}
-\newfontfamily\libertinelf{Minion Pro}[Numbers = {Proportional,Lining}, Ligatures = {TeX}, Scale = {MatchLowercase}]
-\usepackage[math-style=TeX]{unicode-math}
-%\setmathfont{Asana Math}
-%\setmathfont{xits-math}
-\setmathfont{Libertinus Math}
+\RequirePackage{flafter} % places floats after they are first mentioned if possible
+%\RequirePackage [draft]{hyperref}
+\RequirePackage {hyperref}
+\RequirePackage {algorithm}
+\RequirePackage {algorithmicx}
+\RequirePackage {algpseudocode} 
 %\setmathfont{cambria-math}
 % from http://tex.stackexchange.com/questions/47139/what-free-math-font-could-should-accompany-linux-libertine-and-linux-biolinum
 % use Libertine for the letters
@@ -138,16 +189,18 @@
 % etc. (list should be completed depending on needs)
 
 
-%\usepackage{bookmark}
-%\usepackage{titlesec}
-%\usepackage{interfaces-base}
+%\RequirePackage{bookmark}
+%\RequirePackage{titlesec}
+%\RequirePackage{interfaces-base}
 %\LoadInterface{titlesec,bookmark}
 
-\usepackage{pgfplotstable}
-%\usepackage{tikz}
+\RequirePackage{pgfplotstable}
+%\RequirePackage{tikz}
 \pgfplotsset{compat=newest}
 \usetikzlibrary{external,arrows,calc}
+\ifluatex
 \tikzset{external/system call={lualatex \tikzexternalcheckshellescape -shell-escape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
+\fi
 %\tikzexternalize[prefix=figures/]
 
 \KOMAoptions{
@@ -216,7 +269,7 @@ ______</rdf:Description>^^J%
 %	draft,
 %	pdflicenseurl      = {http://creativecommons.org/licenses/by-nc-nd/4.0/},
 %	pdfcopyright       = {Copyright (C) 2015, Emma L. Tonkin},
-	pdfdate            = {2015-01-06},
+%	pdfdate            = {2015-01-06},
 }
 
 \bookmarksetup{%
@@ -237,7 +290,7 @@ ______</rdf:Description>^^J%
 	}
 }
 
-\usepackage[
+\RequirePackage[
     type          = {CC},
     modifier      = {by},
     imagemodifier = {-eu},
@@ -248,19 +301,23 @@ ______</rdf:Description>^^J%
 	group-separator = {,},
 	group-digits = integer,
 	detect-all = true,
-	number-text-rm = \libertinelf,
-	unit-text-rm = \libertinelf,
-	text-rm = \libertinelf,
 	range-units = single,
 }
+\ifluatex
+    \sisetup{
+        number-text-rm = \libertinelf,
+        unit-text-rm = \libertinelf,
+        text-rm = \libertinelf,
+    }
+\fi
 
 
-\usepackage[backend=biber,natbib=true]{biblatex}
+\RequirePackage[backend=biber,natbib=true]{biblatex}
 \ExecuteBibliographyOptions{
     sorting      = none,
     backref      = true,
     alldates     = comp,
-    firstinits   = true,
+    giveninits   = true,
     uniquename   = init,
 %   dashed       = false,
     maxnames     = 1,
@@ -275,8 +332,6 @@ ______</rdf:Description>^^J%
 \DeclareNameAlias{default}{last-first}
 \setcounter{biburlnumpenalty}{100}
 \addto\bibfont{\smaller} % makes bibliography font smalled as per typography guidelines
-\addbibresource{bibliography.bib}
-\addbibresource{mypublications.bib}
 \DeclareSourcemap{
   \maps[datatype=bibtex]{
      \map{
@@ -300,7 +355,7 @@ ______</rdf:Description>^^J%
 
 
 % Add accessibility functions with pdf (>v1.5)
-\usepackage {accsupp}
+\RequirePackage {accsupp}
 % declare function to hide text from selection in pdf, used for the draft
 % watermark and linenos in listing
 \DeclareRobustCommand\squelch[1]{%
@@ -334,7 +389,6 @@ ______</rdf:Description>^^J%
 	tabsize      = 3
 }
 
-\makeatletter
 \g@addto@macro{\UrlBreaks}{\UrlOrds}
 \g@addto@macro\UrlSpecials{%
   \do\`{\mbox{\UrlFont\char`\`}}%
@@ -343,7 +397,6 @@ ______</rdf:Description>^^J%
   \do\l{\mbox{\UrlFont\char`\l}}%
   \do\0{\mbox{\UrlFont\char`\0}}%
 }
-\makeatother
 
 %\patchcmd{\@afterheading}%
 %    {\clubpenalty \@M}{\clubpenalties 3 \@M \@M 0}{}{}
@@ -372,4 +425,105 @@ ______</rdf:Description>^^J%
 \newcommand\isFootnote{%
     \ifx\footnote\nextToken\textsuperscript{,}\fi}
 
+
+
+\setkomafont{title}{\fontsize{25}{25}\sffamily\bfseries}
+\newcommand{\@supervisor}{}
+\newcommand{\supervisor}[1]{\gdef\@supervisor{#1}}
+\newkomafont{supervisor}{\normalfont\normalsize}
+%
+\newcommand{\@degree}{}
+\newcommand{\Degree}[1]{\gdef\@degree{#1}}
+\newkomafont{degree}{\normalfont\bfseries\normalsize}
+%
+\newcommand{\@faculty}{}
+\newcommand{\faculty}[1]{\gdef\@faculty{#1}}
+\newkomafont{faculty}{\normalfont\normalsize}
+%
+\newcommand{\@school}{}
+\newcommand{\school}[1]{\gdef\@school{#1}}
+\newkomafont{school}{\normalfont\normalsize}
+%\newcommand*{\@thanksnote}{}
+%\newcommand*{\thanksnote}[1]{\gdef\@thanksnote{#1}}
+%\newkomafont{thanksnote}{\small\itshape}
+%\newcommand{\@@thanksnote}{\begin{minipage}{\linewidth}
+%\usekomafont{thanksnote}\@thanksnote\par\end{minipage}\par}
+\newcommand*{\@abstract}{}
+\newcommand*{\abstract}[1]{\gdef\@abstract{#1}}
+\newkomafont{abstract}{\normalfont\normalsize}
+
+\renewcommand{\maketitle}{%
+    \begin{titlepage}
+        \newgeometry{textwidth=.80\textwidth}
+%\begin{ddcenter}
+% Title
+        \centering
+        \vspace*{2cm} 
+
+        \begin{varwidth}{\textwidth}
+            \centering
+            \usekomafont{title}\@title\par
+        \end{varwidth}
+
+        \vspace{0.5in}
+        {\usekomafont{author}\centering \@author\par}
+%
+%
+%% University Crest
+\vspace{1in}
+{\centering\includegraphics[width=.5\textwidth]{Images/Bristol-uni-logo-colour}}
+\vspace{1in}
+
+%% Declaration
+A dissertation submitted to the \mbox{University of Bristol} in accordance with the
+requirements for award of the degree of {\usekomafont{degree}\@degree} in the
+\mbox{\@faculty}, \mbox{\@school}.
+
+% Date of submission
+\vspace*{\fill}
+{\large\bfseries \today}
+
+\vspace*{\fill}
+%%\input{wordcount/wordcount} words
+%%
+%%\end{center}
+%\vspace*{\fill}
+\end{titlepage}
+\restoregeometry
+%
+\if@cclicense
+    \newpage
+    \vspace*{\fill}
+    \doclicenseThis
+\fi
+
+\ifx\@abstract\@empty \else {
+    \chapter{Abstract}
+
+    \@abstract\par
+}
+\fi
+% Taken from the PGR code annex 4: http://www.bristol.ac.uk/academic-quality/pg/pgrcode/annex4/
+
+\chapter{Author's Declaration}
+
+I declare that the work in this thesis was carried out in accordance with the
+requirements of the University's \textit{Regulations and Code of Practice for
+Research Degree Programmes} and that it has not been submitted for any other
+academic award.
+
+Except where indicated by specific reference in the text, the work is the
+candidate's own work. Work done in collaboration with, or with the assistance
+of, others, is indicated as such.
+
+Any views expressed in the thesis are those of the author.
+
+\vspace{2\parskip}
+\@author\par
+\vspace{3\parskip}
+
+SIGNED:~\makebox[55mm]{\dotfill}\hfill DATE:~\makebox[55mm]{\dotfill}
+
+
+}
 
