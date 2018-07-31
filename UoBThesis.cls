@@ -123,7 +123,7 @@
 \ExplSyntaxOn
 \cs_new_eq:NN \siunitx_table_collect_begin:Nn \__siunitx_table_collect_begin:Nn
 \ExplSyntaxOff
-\RequirePackage {enumitem}
+\RequirePackage [inline]{enumitem}
 \setlist{nosep}
 \RequirePackage {varwidth}
 %\RequirePackage [multiple]{footmisc} % added to allow proper formation of multiple consecutive footnote %incompatible with hyperref
@@ -438,6 +438,8 @@ ______</rdf:Description>^^J%
 \renewcommand\frontmatter{\oldfrontmatter \singlespacing}
 \let\oldmainmatter\mainmatter
 \renewcommand\mainmatter{\oldmainmatter \onehalfspacing}
+\let\oldbackmatter\backmatter
+\renewcommand\backmatter{\oldbackmatter \singlespacing}
 
 \setkomafont{title}{\fontsize{25}{25}\sffamily\bfseries}
 \newcommand{\@supervisor}{}
