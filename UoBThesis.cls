@@ -105,7 +105,7 @@
 \graphicspath{{Images}}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 \RequirePackage [nodisplayskipstretch]{setspace} %onehalfspacing or doublespacing are the options here
-\setstretch{1.20}
+%\setstretch{1.20}
 \RequirePackage {xcolor}
 \RequirePackage [final]{changes}
 \RequirePackage {multicol}
@@ -425,7 +425,10 @@ ______</rdf:Description>^^J%
 \newcommand\isFootnote{%
     \ifx\footnote\nextToken\textsuperscript{,}\fi}
 
-
+\let\oldfrontmatter\frontmatter
+\renewcommand\frontmatter{\oldfrontmatter \singlespacing}
+\let\oldmainmatter\mainmatter
+\renewcommand\mainmatter{\oldmainmatter \onehalfspacing}
 
 \setkomafont{title}{\fontsize{25}{25}\sffamily\bfseries}
 \newcommand{\@supervisor}{}
@@ -451,6 +454,10 @@ ______</rdf:Description>^^J%
 \newcommand*{\@abstract}{}
 \newcommand*{\abstract}[1]{\gdef\@abstract{#1}}
 \newkomafont{abstract}{\normalfont\normalsize}
+
+\newcommand*{\@acknowledgements}{}
+\newcommand*{\acknowledgements}[1]{\gdef\@acknowledgements{#1}}
+\newkomafont{acknowledgements}{\normalfont\normalsize}
 
 \renewcommand{\maketitle}{%
     \begin{titlepage}
@@ -503,8 +510,8 @@ requirements for award of the degree of {\usekomafont{degree}\@degree} in the
     \@abstract\par
 }
 \fi
-% Taken from the PGR code annex 4: http://www.bristol.ac.uk/academic-quality/pg/pgrcode/annex4/
 
+% Taken from the PGR code annex 4: http://www.bristol.ac.uk/academic-quality/pg/pgrcode/annex4/
 \chapter{Author's Declaration}
 
 I declare that the work in this thesis was carried out in accordance with the
@@ -518,12 +525,21 @@ of, others, is indicated as such.
 
 Any views expressed in the thesis are those of the author.
 
-\vspace{2\parskip}
-\@author\par
 \vspace{3\parskip}
+\@author\par
+\vspace{4\parskip}
 
 SIGNED:~\makebox[55mm]{\dotfill}\hfill DATE:~\makebox[55mm]{\dotfill}
+% End of author's declaration
 
+
+% Place acknowledgements in its own chapter if it is defined
+\ifx\@acknowledgements\@empty \else {
+    \chapter{Acknowledgements}
+
+    \@acknowledgements\par
+}
+\fi
 
 }
 
