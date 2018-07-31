@@ -100,7 +100,7 @@
 \fi\fi
 
 %\RequirePackage [protrusion=true,expansion]{microtype}
-\RequirePackage {typearea,geometry}
+\RequirePackage {typearea}%,geometry}
 \RequirePackage {needspace}
 
 \RequirePackage {graphicx}
@@ -217,7 +217,12 @@
 	chapterprefix = true,
 %	DIV           = calc,
 	BCOR          = 7mm,
+    titlepage       = firstiscover,
 }
+
+\renewcommand{\coverpageleftmargin}{%
+\dimexpr \evensidemargin+2cm\relax}
+
 \recalctypearea
 \pagestyle{scrheadings}
 %\ofoot{}
@@ -482,61 +487,69 @@ ______</rdf:Description>^^J%
 
 \renewcommand{\maketitle}{%
     \begin{titlepage}
-        \newgeometry{textwidth=.80\textwidth}
+        \setlength{\parindent}{\z@}
+        \setlength{\parskip}{\z@}
+
+%        \newgeometry{textwidth=.80\textwidth}
 %\begin{ddcenter}
 % Title
         \centering
         \vspace*{2cm} 
 
-        \begin{varwidth}{\textwidth}
+        \begin{varwidth}{.75\textwidth}
             \centering
             \usekomafont{title}\@title\par
         \end{varwidth}
 
-        \vspace{1cm}
+        \vspace{2cm}
         {\usekomafont{author}\centering \@author\par}
 %
 %
 %% University Crest
-\vspace{3cm}
-{\centering\includegraphics[width=.5\textwidth]{Images/Bristol-uni-logo-colour}}
-\vspace{3cm}
+        \vspace{3cm}
+        {\centering\includegraphics[width=5cm]{Images/Bristol-uni-logo-colour}}
+        \vspace{3cm}
 
 %% Declaration
-A dissertation submitted to the \mbox{University of Bristol} in accordance with the
-requirements for award of the degree of {\usekomafont{degree}\@degree} in the
-\mbox{\@faculty}, \mbox{\@school}.
+        \begin{varwidth}{.8\textwidth}
+            \centering
+            A dissertation submitted to the \mbox{University of Bristol} in accordance
+            with the requirements for award of the degree of
+            {\usekomafont{degree}\@degree} in the \mbox{\@faculty}, \mbox{\@school}.
+        \end{varwidth}
 
 % Date of submission
-\vspace{1cm}
-\ifx\@submitted\@empty
-    {\usekomafont{submitted}\today\par}
-\else
-    {\usekomafont{submitted}\DTMdate{\@submitted}\par}
-\fi
+        \vspace{1cm}
+        \ifx\@submitted\@empty
+            {\usekomafont{submitted}\today\par}
+        \else
+            {\usekomafont{submitted}\DTMdate{\@submitted}\par}
+        \fi
 
-\ifx\@wordcount\@empty \else 
-    \vspace*{\fill}
-    {\usekomafont{wordcount}\raggedleft Word count: \num{\@wordcount} words\par}
-    %%\input{wordcount/wordcount} words
-\fi
-%%\end{center}
-%\vspace*{\fill}
-\end{titlepage}
-\restoregeometry
+        \ifx\@wordcount\@empty \else 
+            \vspace*{\fill}
+            {\usekomafont{wordcount}\raggedleft Word count: \num{\@wordcount} words\par}
+            %%\input{wordcount/wordcount} words
+        \fi
+    \end{titlepage}
+
+% Placing CC license if requested on verso of titlepage
+    \ifuob@cclicense
+        \newpage
+        \vspace*{\fill}
+        \doclicenseThis
+    \fi
+
+
 %
-\ifuob@cclicense
-    \newpage
-    \vspace*{\fill}
-    \doclicenseThis
-\fi
+% Abstract
+%
+    \ifx\@abstract\@empty \else {
+        \chapter{Abstract}
 
-\ifx\@abstract\@empty \else {
-    \chapter{Abstract}
-
-    \@abstract\par
-}
-\fi
+        \@abstract\par
+    }
+    \fi
 
 % Taken from the PGR code annex 4: http://www.bristol.ac.uk/academic-quality/pg/pgrcode/annex4/
 \chapter{Author's Declaration}
