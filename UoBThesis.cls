@@ -3,8 +3,10 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{UoBThesis}[2018/08/01 University of Bristol PhD Thesis Class]
 
-\newif\if@cclicense\@cclicensefalse
-\DeclareOption{cclicense}{\@cclicensetrue}
+\newif\ifuob@cclicense\uob@cclicensefalse
+\DeclareOption{cclicense}{\uob@cclicensetrue}
+\newif\ifuob@minted\uob@mintedfalse
+\DeclareOption{minted}{\uob@mintedtrue}
 \ProcessOptions\relax
 
 \RequirePackage{ifpdf,ifxetex,ifluatex}
@@ -115,7 +117,6 @@
 \RequirePackage {quoting}
 \RequirePackage {tabu}
 \PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
-\RequirePackage {minted}
 \RequirePackage {etoolbox}
 \RequirePackage [version=4]{mhchem}
 \RequirePackage {siunitx,numprint}
@@ -370,24 +371,32 @@ ______</rdf:Description>^^J%
  %\addfontfeature{Numbers={Monospaced,Lining}}
  %}
 
-\BeforeBeginEnvironment{minted}{\begin{singlespace}}
-\AfterEndEnvironment{minted}{\end{singlespace}}
-\renewcommand{\theFancyVerbLine}{
-  \fontspec[Numbers = {Lining,Monospaced}]{Libertinus Serif}\color[rgb]{0.5,0.5,0.5}\scriptsize\squelch{\arabic{FancyVerbLine}}}
+\ifx\uob@minted {
+    \RequirePackage {minted}
+    \BeforeBeginEnvironment{minted}{\begin{singlespace}}
+    \AfterEndEnvironment{minted}{\end{singlespace}}
+    \renewcommand{\theFancyVerbLine}{
+    \ifluatex
+        \fontspec[Numbers = {Lining,Monospaced}]{Libertinus Serif}
+    \fi
+    \color[rgb]{0.5,0.5,0.5}\scriptsize\squelch{\arabic{FancyVerbLine}}
+    }
 
-\usemintedstyle{bw}
+    \usemintedstyle{bw}
 
-\setminted{
-	frame        = lines,
-	framesep     = 2mm,
-	linenos      = true,
-	numbersep    = 5pt,
-%	gobble       = 2,
-	fontsize     = \footnotesize,
-	xleftmargin  = 20pt,
-	xrightmargin = 20pt,
-	tabsize      = 3
+    \setminted{
+        frame        = lines,
+        framesep     = 2mm,
+        linenos      = true,
+        numbersep    = 5pt,
+    %	gobble       = 2,
+        fontsize     = \footnotesize,
+        xleftmargin  = 20pt,
+        xrightmargin = 20pt,
+        tabsize      = 3
+    }
 }
+\fi
 
 \g@addto@macro{\UrlBreaks}{\UrlOrds}
 \g@addto@macro\UrlSpecials{%
@@ -498,7 +507,7 @@ requirements for award of the degree of {\usekomafont{degree}\@degree} in the
 \end{titlepage}
 \restoregeometry
 %
-\if@cclicense
+\ifuob@cclicense
     \newpage
     \vspace*{\fill}
     \doclicenseThis
