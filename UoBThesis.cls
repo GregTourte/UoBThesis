@@ -212,7 +212,8 @@
 	%draft,
 	captions      = tableheading,
 %	toc           = listofnumbered,
-	listof        = leveldown,
+    listof        = leveldown,
+    listof        = totoc,
 	chapterprefix = true,
 %	DIV           = calc,
 	BCOR          = 7mm,
@@ -457,6 +458,15 @@ ______</rdf:Description>^^J%
 \newcommand{\@school}{}
 \newcommand{\school}[1]{\gdef\@school{#1}}
 \newkomafont{school}{\normalfont\normalsize}
+%
+\newcommand*{\@submitted}{}
+\newcommand*{\submitted}[1]{\gdef\@submitted{#1}}
+\newkomafont{submitted}{\normalfont\bfseries\large}
+%
+\newcommand*{\@wordcount}{}
+\newcommand*{\wordcount}[1]{\gdef\@wordcount{#1}}
+\newkomafont{wordcount}{\normalfont\normalsize}
+%
 %\newcommand*{\@thanksnote}{}
 %\newcommand*{\thanksnote}[1]{\gdef\@thanksnote{#1}}
 %\newkomafont{thanksnote}{\small\itshape}
@@ -483,14 +493,14 @@ ______</rdf:Description>^^J%
             \usekomafont{title}\@title\par
         \end{varwidth}
 
-        \vspace{0.5in}
+        \vspace{1cm}
         {\usekomafont{author}\centering \@author\par}
 %
 %
 %% University Crest
-\vspace{1in}
+\vspace{3cm}
 {\centering\includegraphics[width=.5\textwidth]{Images/Bristol-uni-logo-colour}}
-\vspace{1in}
+\vspace{3cm}
 
 %% Declaration
 A dissertation submitted to the \mbox{University of Bristol} in accordance with the
@@ -498,12 +508,18 @@ requirements for award of the degree of {\usekomafont{degree}\@degree} in the
 \mbox{\@faculty}, \mbox{\@school}.
 
 % Date of submission
-\vspace*{\fill}
-{\large\bfseries \today}
+\vspace{1cm}
+\ifx\@submitted\@empty
+    {\usekomafont{submitted}\today\par}
+\else
+    {\usekomafont{submitted}\DTMdate{\@submitted}\par}
+\fi
 
-\vspace*{\fill}
-%%\input{wordcount/wordcount} words
-%%
+\ifx\@wordcount\@empty \else 
+    \vspace*{\fill}
+    {\usekomafont{wordcount}\raggedleft Word count: \num{\@wordcount} words\par}
+    %%\input{wordcount/wordcount} words
+\fi
 %%\end{center}
 %\vspace*{\fill}
 \end{titlepage}
