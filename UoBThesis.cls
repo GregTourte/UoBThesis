@@ -31,7 +31,7 @@
 
 \RequirePackage{scrhack}
 \RequirePackage{scrlayer-scrpage}
-\RequirePackage{amsmath}
+\RequirePackage{mathtools}
 %\PassOptionsToPackage{pdfa}{hyperref}
 \AfterPackage!{hyperref}{\RequirePackage{hyperxmp}}
 \AfterPackage!{hyperref}{\RequirePackage[nameinlink]{cleveref}}
