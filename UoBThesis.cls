@@ -7,6 +7,8 @@
 \DeclareOption{cclicense}{\uob@cclicensetrue}
 \newif\ifuob@minted\uob@mintedfalse
 \DeclareOption{minted}{\uob@mintedtrue}
+\newif\ifuob@minion\uob@minionfalse
+\DeclareOption{minion}{\uob@miniontrue}
 \ProcessOptions\relax
 
 \RequirePackage{ifpdf,ifxetex,ifluatex}
@@ -30,7 +32,7 @@
 \fi\fi
 
 %% PRELIMINARY DECLARATIONS
-\LoadClass{scrbook}
+\LoadClass[version=last]{scrbook}
 
 
 \RequirePackage{scrhack}
@@ -45,9 +47,23 @@
 % Loading LuaTeX spefic packages
     \RequirePackage {fontspec,microtype}
     \defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
-    \setmainfont {Libertinus Serif}[
-        Numbers = {Proportional,OldStyle},
-        BoldFont= * bold ]
+    \ifuob@minion
+        \setmainfont {Minion Pro}[
+            Numbers = {Proportional,OldStyle},
+            BoldFont= * bold ]
+        \newfontfamily\liningroman{Minion Pro}[
+            Numbers = {Proportional,Lining},
+            Ligatures = {TeX},
+            Scale = {MatchLowercase} ]
+    \else
+        \setmainfont {Libertinus Serif}[
+            Numbers = {Proportional,OldStyle},
+            BoldFont= * bold ]
+        \newfontfamily\liningroman{Libertinus Serif}[
+            Numbers = {Proportional,Lining},
+            Ligatures = {TeX},
+            Scale = {MatchLowercase} ]
+    \fi
     \setsansfont {LibertinusSans}[
         Numbers = {Proportional,OldStyle} ]
     \setmonofont {Inconsolata zi4}[
@@ -55,10 +71,6 @@
         ItalicFeatures = FakeSlant,
         RawFeature = -tlig;-trep,
         StylisticSet={1,3} ]
-    \newfontfamily\libertinelf{Libertinus Serif}[
-        Numbers = {Proportional,Lining},
-        Ligatures = {TeX},
-        Scale = {MatchLowercase} ]
     \RequirePackage[math-style=TeX]{unicode-math}
     \setmathfont{Libertinus Math}
 
@@ -81,7 +93,7 @@
         ItalicFeatures = FakeSlant,
         RawFeature = -tlig;-trep,
         StylisticSet={1,3} ]
-    \newfontfamily\libertinelf{Libertinus Serif}[
+    \newfontfamily\liningroman{Libertinus Serif}[
         Numbers = {Proportional,Lining},
         Ligatures = {TeX},
         Scale = {MatchLowercase} ]
@@ -205,7 +217,7 @@
 %\tikzexternalize[prefix=figures/]
 
 \KOMAoptions{
-    fontsize      = 11pt,
+    fontsize      = 12pt,
     numbers       = noendperiod,
     parskip       = half-,
     twoside,
@@ -215,9 +227,11 @@
     listof        = leveldown,
     listof        = totoc,
 	chapterprefix = true,
-%	DIV           = calc,
+	DIV           = 11,
 	BCOR          = 7mm,
     titlepage       = firstiscover,
+    footinclude     = false,
+    headinclude     = false,
 }
 
 \renewcommand{\coverpageleftmargin}{%
@@ -312,9 +326,9 @@ ______</rdf:Description>^^J%
 }
 \ifluatex
     \sisetup{
-        number-text-rm = \libertinelf,
-        unit-text-rm = \libertinelf,
-        text-rm = \libertinelf,
+        number-text-rm = \liningroman,
+        unit-text-rm = \liningroman,
+        text-rm = \liningroman,
     }
 \fi
 
@@ -373,7 +387,7 @@ ______</rdf:Description>^^J%
 %\renewcommand{\em}{\itshape}
 \newcommand*\ac[1]{\textsmaller{#1}}
 %\AtBeginEnvironment{tabu}{%
-%  \libertinelf}
+%  \liningroman}
  %\addfontfeature{Numbers={Monospaced,Lining}}
  %}
 
@@ -447,7 +461,7 @@ ______</rdf:Description>^^J%
 \let\oldbackmatter\backmatter
 \renewcommand\backmatter{\oldbackmatter \singlespacing}
 
-\setkomafont{title}{\fontsize{25}{25}\sffamily\bfseries}
+\setkomafont{title}{\sffamily\Huge\bfseries}
 \newcommand{\@supervisor}{}
 \newcommand{\supervisor}[1]{\gdef\@supervisor{#1}}
 \newkomafont{supervisor}{\normalfont\normalsize}
