@@ -3,13 +3,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{UoBThesis}[2018/08/01 University of Bristol PhD Thesis Class]
 
-\newif\ifuob@cclicense\uob@cclicensefalse
-\DeclareOption{cclicense}{\uob@cclicensetrue}
-\newif\ifuob@minted\uob@mintedfalse
-\DeclareOption{minted}{\uob@mintedtrue}
-\newif\ifuob@minion\uob@minionfalse
-\DeclareOption{minion}{\uob@miniontrue}
-\ProcessOptions\relax
 
 \RequirePackage{ifpdf,ifxetex,ifluatex}
 \ifluatex
@@ -34,6 +27,7 @@
 %% PRELIMINARY DECLARATIONS
 \LoadClass[version=last]{scrbook}
 
+\input{UoBThesis.inc}
 
 \RequirePackage{scrhack}
 \RequirePackage{scrlayer-scrpage}
@@ -131,6 +125,10 @@
 \PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
 \RequirePackage {etoolbox}
 \RequirePackage [version=4]{mhchem}
+\mhchemoptions{%
+    textfontcommand = \addfontfeature{Numbers = {Lining, Monospaced}, RawFeature = {-onum,-pnum,+tnum}},%
+}
+
 \RequirePackage {siunitx,numprint}
 \ExplSyntaxOn
 \cs_new_eq:NN \siunitx_table_collect_begin:Nn \__siunitx_table_collect_begin:Nn
@@ -220,7 +218,7 @@
     fontsize      = 12pt,
     numbers       = noendperiod,
     parskip       = half-,
-    twoside,
+    twoside       = semi,
 	%draft,
 	captions      = tableheading,
 %	toc           = listofnumbered,
@@ -228,19 +226,19 @@
     listof        = totoc,
 	chapterprefix = true,
 	DIV           = 11,
-	BCOR          = 7mm,
-    titlepage       = firstiscover,
-    footinclude     = false,
-    headinclude     = false,
+%	BCOR          = 7mm,
+    titlepage     = firstiscover,
+    footinclude   = false,
+    headinclude   = false,
 }
 
 \renewcommand{\coverpageleftmargin}{%
 \dimexpr \evensidemargin+2cm\relax}
 
 \recalctypearea
+\ofoot[]{}
+\cfoot[\pagemark]{\pagemark}
 \pagestyle{scrheadings}
-%\ofoot{}
-\ofoot{\pagemark}
 \setuptoc{toc}{numbered}
 %\setcounter{secnumdepth}{3}
 % customize dictum format:
@@ -319,7 +317,7 @@ ______</rdf:Description>^^J%
 ]{doclicense}
 
 \sisetup{
-	group-separator = {,},
+%	group-separator = {,},
 	group-digits = integer,
 	detect-all = true,
 	range-units = single,
@@ -374,7 +372,7 @@ ______</rdf:Description>^^J%
 %\setlength{\oddsidemargin}{0.9in}
 %\setlength{\evensidemargin}{0in}
 
-
+\RequirePackage{realscripts}
 % Add accessibility functions with pdf (>v1.5)
 \RequirePackage {accsupp}
 % declare function to hide text from selection in pdf, used for the draft
@@ -461,87 +459,53 @@ ______</rdf:Description>^^J%
 \let\oldbackmatter\backmatter
 \renewcommand\backmatter{\oldbackmatter \singlespacing}
 
-\setkomafont{title}{\sffamily\Huge\bfseries}
-\newcommand{\@supervisor}{}
-\newcommand{\supervisor}[1]{\gdef\@supervisor{#1}}
-\newkomafont{supervisor}{\normalfont\normalsize}
-%
-\newcommand{\@degree}{}
-\newcommand{\Degree}[1]{\gdef\@degree{#1}}
-\newkomafont{degree}{\normalfont\bfseries\normalsize}
-%
-\newcommand{\@faculty}{}
-\newcommand{\faculty}[1]{\gdef\@faculty{#1}}
-\newkomafont{faculty}{\normalfont\normalsize}
-%
-\newcommand{\@school}{}
-\newcommand{\school}[1]{\gdef\@school{#1}}
-\newkomafont{school}{\normalfont\normalsize}
-%
-\newcommand*{\@submitted}{}
-\newcommand*{\submitted}[1]{\gdef\@submitted{#1}}
-\newkomafont{submitted}{\normalfont\bfseries\large}
-%
-\newcommand*{\@wordcount}{}
-\newcommand*{\wordcount}[1]{\gdef\@wordcount{#1}}
-\newkomafont{wordcount}{\normalfont\normalsize}
-%
-%\newcommand*{\@thanksnote}{}
-%\newcommand*{\thanksnote}[1]{\gdef\@thanksnote{#1}}
-%\newkomafont{thanksnote}{\small\itshape}
-%\newcommand{\@@thanksnote}{\begin{minipage}{\linewidth}
-%\usekomafont{thanksnote}\@thanksnote\par\end{minipage}\par}
-\newcommand*{\@abstract}{}
-\newcommand*{\abstract}[1]{\gdef\@abstract{#1}}
-\newkomafont{abstract}{\normalfont\normalsize}
-
-\newcommand*{\@acknowledgements}{}
-\newcommand*{\acknowledgements}[1]{\gdef\@acknowledgements{#1}}
-\newkomafont{acknowledgements}{\normalfont\normalsize}
+\setlength{\uobtitlecoverwidth}{\textwidth}
 
 \renewcommand{\maketitle}{%
     \begin{titlepage}
         \setlength{\parindent}{\z@}
         \setlength{\parskip}{\z@}
+        \enlargethispage{17mm}
 
 %        \newgeometry{textwidth=.80\textwidth}
 %\begin{ddcenter}
 % Title
         \centering
-        \vspace*{2cm} 
+        \vglue 3cm 
 
-        \begin{varwidth}{.75\textwidth}
+        \begin{varwidth}{\uobtitlecoverwidth}
             \centering
             \usekomafont{title}\@title\par
         \end{varwidth}
 
-        \vspace{2cm}
+        \vskip 2cm
         {\usekomafont{author}\centering \@author\par}
 %
 %
 %% University Crest
-        \vspace{3cm}
+        \vskip \fill
         {\centering\includegraphics[width=5cm]{Images/Bristol-uni-logo-colour}}
-        \vspace{3cm}
+        \vskip \fill
 
 %% Declaration
         \begin{varwidth}{.8\textwidth}
             \centering
-            A dissertation submitted to the \mbox{University of Bristol} in accordance
-            with the requirements for award of the degree of
-            {\usekomafont{degree}\@degree} in the \mbox{\@faculty}, \mbox{\@school}.
+            \uob@front@declaration@text\par
         \end{varwidth}
 
 % Date of submission
-        \vspace{1cm}
+        \vskip 1cm
         \ifx\@submitted\@empty
             {\usekomafont{submitted}\today\par}
         \else
             {\usekomafont{submitted}\DTMdate{\@submitted}\par}
         \fi
 
-        \ifx\@wordcount\@empty \else 
-            \vspace*{\fill}
+        \ifx\@wordcount\@empty
+            \vskip 3cm
+            \mbox{}
+        \else 
+            \vskip 3cm
             {\usekomafont{wordcount}\raggedleft Word count: \num{\@wordcount} words\par}
             %%\input{wordcount/wordcount} words
         \fi
@@ -550,7 +514,9 @@ ______</rdf:Description>^^J%
 % Placing CC license if requested on verso of titlepage
     \ifuob@cclicense
         \newpage
-        \vspace*{\fill}
+        \enlargethispage{2cm}
+        \thispagestyle{empty}
+        \vglue \fill
         \doclicenseThis
     \fi
 
@@ -568,16 +534,7 @@ ______</rdf:Description>^^J%
 % Taken from the PGR code annex 4: http://www.bristol.ac.uk/academic-quality/pg/pgrcode/annex4/
 \chapter{Author's Declaration}
 
-I declare that the work in this thesis was carried out in accordance with the
-requirements of the University's \textit{Regulations and Code of Practice for
-Research Degree Programmes} and that it has not been submitted for any other
-academic award.
-
-Except where indicated by specific reference in the text, the work is the
-candidate's own work. Work done in collaboration with, or with the assistance
-of, others, is indicated as such.
-
-Any views expressed in the thesis are those of the author.
+\uob@author@declaration@text\par
 
 \vspace{3\parskip}
 \@author\par
