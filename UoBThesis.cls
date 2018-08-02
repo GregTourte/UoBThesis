@@ -4,7 +4,7 @@
 \ProvidesClass{UoBThesis}[2018/08/01 University of Bristol PhD Thesis Class]
 
 
-\RequirePackage{ifpdf,ifxetex,ifluatex}
+\RequirePackage{iftex,ifpdf,ifxetex,ifluatex}
 \ifluatex
 	\pdfvariable minorversion 7
 	\pdfvariable pageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
@@ -136,9 +136,11 @@
 \PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
 \RequirePackage {etoolbox}
 \RequirePackage [version=4]{mhchem}
-\mhchemoptions{%
-    textfontcommand = \addfontfeature{Numbers = {Lining, Monospaced}, RawFeature = {-onum,-pnum,+tnum}},%
-}
+\ifPDFTeX\else 
+    \mhchemoptions{%
+        textfontcommand = \addfontfeature{Numbers = {Lining, Monospaced}, RawFeature = {-onum,-pnum,+tnum}},%
+    }
+\fi
 
 \RequirePackage {siunitx,numprint}
 \ExplSyntaxOn
@@ -397,7 +399,7 @@ ______</rdf:Description>^^J%
 %\setlength{\oddsidemargin}{0.9in}
 %\setlength{\evensidemargin}{0in}
 
-\RequirePackage{realscripts}
+\ifluatex\RequirePackage{realscripts}\fi
 % Add accessibility functions with pdf (>v1.5)
 \RequirePackage {accsupp}
 % declare function to hide text from selection in pdf, used for the draft
