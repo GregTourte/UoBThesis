@@ -9,6 +9,9 @@
 \newif\ifuob@minion\uob@minionfalse
 \DeclareOption{minion}{\uob@miniontrue}
 
+\newif\ifuob@print\uob@printfalse
+\DeclareOption{print}{\uob@printtrue}
+
 \ProcessOptions\relax
 
 

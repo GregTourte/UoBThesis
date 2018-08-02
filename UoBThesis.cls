@@ -29,13 +29,24 @@
 
 \input{UoBThesis.inc}
 
+\ifuob@print
+    \ifluatex
+        \pdfvariable minorversion 4
+    \else\ifpdf
+        \pdfminorversion 4
+    \fi\fi
+\fi
+
+    
 \RequirePackage{scrhack}
 \RequirePackage{scrlayer-scrpage}
 \RequirePackage{mathtools}
 %\PassOptionsToPackage{pdfa}{hyperref}
-\AfterPackage!{hyperref}{\RequirePackage{hyperxmp}}
+\ifuob@print\else
+    \AfterPackage!{hyperref}{\RequirePackage{bookmark}}
+    \AfterPackage!{hyperref}{\RequirePackage{hyperxmp}}
+\fi
 \AfterPackage!{hyperref}{\RequirePackage[nameinlink]{cleveref}}
-\AfterPackage!{hyperref}{\RequirePackage{bookmark}}
 
 \ifluatex
 % Loading LuaTeX spefic packages
@@ -169,8 +180,9 @@
 %\renewcommand\thesubfigure{(\alph{subfigure})}
 \captionsetup{
 	format        = hang,
-	justification = centerlast,
+%	justification = centerlast,
     font          = small,
+    width         = .75\linewidth,
 }
 \captionsetup[listing]{skip=10pt}
 \RequirePackage{xcolor} 
@@ -178,13 +190,17 @@
 \RequirePackage{scalefnt}
 \RequirePackage{bytefield}
 \RequirePackage{ragged2e}
-\RequirePackage{relsize}
+\ifluatex\RequirePackage{relsize}\fi
 %\RequirePackage [smaller]{acronym}
 
 \newcommand\TODO{{\color{red}\bfseries TODO}}
 \RequirePackage{flafter} % places floats after they are first mentioned if possible
 %\RequirePackage [draft]{hyperref}
-\RequirePackage {hyperref}
+\ifuob@print
+    \RequirePackage [bookmarks=false]{hyperref}
+\else
+    \RequirePackage {hyperref}
+\fi
 \RequirePackage {algorithm}
 \RequirePackage {algorithmicx}
 \RequirePackage {algpseudocode} 
@@ -200,10 +216,7 @@
 % etc. (list should be completed depending on needs)
 
 
-%\RequirePackage{bookmark}
-%\RequirePackage{titlesec}
 %\RequirePackage{interfaces-base}
-%\LoadInterface{titlesec,bookmark}
 
 \RequirePackage{pgfplotstable}
 %\RequirePackage{tikz}
@@ -232,9 +245,6 @@
     headinclude   = false,
 }
 
-\renewcommand{\coverpageleftmargin}{%
-\dimexpr \evensidemargin+2cm\relax}
-
 \recalctypearea
 \ofoot[]{}
 \cfoot[\pagemark]{\pagemark}
@@ -251,6 +261,7 @@
 %\crefname{algocf}{alg.}{algs.}
 %\Crefname{algocf}{Algorithm}{Algorithms}
 
+\ifuob@print\else
 \renewcommand*{\hyxmp@pdfa@id@schema}{%
   \ifHy@pdfa
     \hyxmp@add@to@xml{%
@@ -264,7 +275,16 @@ ______</rdf:Description>^^J%
     }%
   \fi
 }
+\fi
 
+{
+    \DTMsetstyle{pdf}
+    \ifx\@submitted\@empty
+        \protected@edef\uob@pdfdate{\today 120000}
+    \else
+        \protected@edef\uob@pdfdate{\DTMdate{\@submitted}120000}
+    \fi
+}
 \hypersetup {
 	hidelinks,
 	breaklinks,
@@ -288,9 +308,13 @@ ______</rdf:Description>^^J%
 %	draft,
 %	pdflicenseurl      = {http://creativecommons.org/licenses/by-nc-nd/4.0/},
 %	pdfcopyright       = {Copyright (C) 2015, Emma L. Tonkin},
-%	pdfdate            = {2015-01-06},
+%    pdfinfo            = {
+%        CreationDate    = {\uob@pdfdate},
+%    }
 }
+\ifuob@print\hypersetup{draft}\fi
 
+\ifuob@print\else
 \bookmarksetup{%
 	open,
 	addtohook={%
@@ -308,6 +332,7 @@ ______</rdf:Description>^^J%
 %		\fi
 	}
 }
+\fi
 
 \RequirePackage[
     type          = {CC},
@@ -475,11 +500,11 @@ ______</rdf:Description>^^J%
 
         \begin{varwidth}{\uobtitlecoverwidth}
             \centering
-            \usekomafont{title}\@title\par
+            \usekomafont{title}\@title
         \end{varwidth}
 
         \vskip 2cm
-        {\usekomafont{author}\centering \@author\par}
+        {\usekomafont{author}\@author}
 %
 %
 %% University Crest
@@ -490,22 +515,23 @@ ______</rdf:Description>^^J%
 %% Declaration
         \begin{varwidth}{.8\textwidth}
             \centering
-            \uob@front@declaration@text\par
+            \uob@front@declaration@text
         \end{varwidth}
 
 % Date of submission
         \vskip 1cm
-        \ifx\@submitted\@empty
-            {\usekomafont{submitted}\today\par}
-        \else
-            {\usekomafont{submitted}\DTMdate{\@submitted}\par}
-        \fi
+        {\usekomafont{submitted}\DTMlangsetup{showdayofmonth=false}%
+            \ifx\@submitted\@empty
+                \DTMtoday
+            \else
+                \DTMdate{\@submitted}
+            \fi
+        }
 
+        \vskip 3cm
         \ifx\@wordcount\@empty
-            \vskip 3cm
             \mbox{}
         \else 
-            \vskip 3cm
             {\usekomafont{wordcount}\raggedleft Word count: \num{\@wordcount} words\par}
             %%\input{wordcount/wordcount} words
         \fi
@@ -527,18 +553,18 @@ ______</rdf:Description>^^J%
     \ifx\@abstract\@empty \else {
         \chapter{Abstract}
 
-        \@abstract\par
+        \@abstract
     }
     \fi
 
 % Taken from the PGR code annex 4: http://www.bristol.ac.uk/academic-quality/pg/pgrcode/annex4/
 \chapter{Author's Declaration}
 
-\uob@author@declaration@text\par
+\uob@author@declaration@text
 
-\vspace{3\parskip}
-\@author\par
-\vspace{4\parskip}
+\vskip 3\parskip
+\@author
+\vskip 6\parskip
 
 SIGNED:~\makebox[55mm]{\dotfill}\hfill DATE:~\makebox[55mm]{\dotfill}
 % End of author's declaration
