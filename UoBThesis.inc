@@ -14,6 +14,9 @@
 
 \ProcessOptions\relax
 
+\RequirePackage{pgfkeys}
+\RequirePackage{pgfopts}
+
 
 \setkomafont{title}{\sffamily\Huge\bfseries}
 \newlength{\uobtitlecoverwidth}

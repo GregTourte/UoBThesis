@@ -6,8 +6,8 @@
 
 \RequirePackage{iftex,ifpdf,ifxetex,ifluatex}
 \ifluatex
-	\pdfvariable minorversion 7
-	\pdfvariable pageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
+    \pdfvariable minorversion 7
+    \pdfvariable pageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
     \pdfextension catalog{%
         /OutputIntents [ <<
         /Type /OutputIntent
@@ -17,11 +17,10 @@
         /Info(eciRGB v2)
         >> ]
     }
-    %\RequirePackage[2015/01/01]{latexrelease}
 
 \else\ifpdf
-	\pdfminorversion 7
-	\pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
+    \pdfminorversion 7
+    \pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
 \fi\fi
 
 %% PRELIMINARY DECLARATIONS
@@ -116,8 +115,6 @@
    \RequirePackage [british]{babel}
 \fi\fi
 
-%\RequirePackage [protrusion=true,expansion]{microtype}
-\RequirePackage {typearea}%,geometry}
 \RequirePackage {needspace}
 
 \RequirePackage {graphicx}
@@ -126,7 +123,7 @@
 \RequirePackage [nodisplayskipstretch]{setspace} %onehalfspacing or doublespacing are the options here
 %\setstretch{1.20}
 \RequirePackage {xcolor}
-\RequirePackage [final]{changes}
+%\RequirePackage [final]{changes}
 \RequirePackage {multicol}
 \RequirePackage {multirow}
 \RequirePackage {booktabs}
@@ -142,17 +139,15 @@
     }
 \fi
 
-\RequirePackage {siunitx,numprint}
+\RequirePackage {siunitx}
 \ExplSyntaxOn
 \cs_new_eq:NN \siunitx_table_collect_begin:Nn \__siunitx_table_collect_begin:Nn
 \ExplSyntaxOff
 \RequirePackage [inline]{enumitem}
 \setlist{nosep}
 \RequirePackage {varwidth}
-%\RequirePackage [multiple]{footmisc} % added to allow proper formation of multiple consecutive footnote %incompatible with hyperref
 
 \RequirePackage {float}
-\RequirePackage {hyphenat}
 
 \RequirePackage[mode=tex]{standalone}
 \RequirePackage{xstring}
@@ -176,28 +171,21 @@
 \RequirePackage [autostyle,english=british]{csquotes}
 \RequirePackage {caption,subcaption}
 \RequirePackage {verse}
-%\RequirePackage [british,iso]{isodate}
 
 %\captionsetup[subfigure]{subrefformat=simple,labelformat=simple,listofformat=subsimple}
 %\renewcommand\thesubfigure{(\alph{subfigure})}
 \captionsetup{
-	format        = hang,
-%	justification = centerlast,
+    format        = hang,
+%   justification = centerlast,
     font          = small,
     width         = .75\linewidth,
 }
 \captionsetup[listing]{skip=10pt}
-\RequirePackage{xcolor} 
-%\RequirePackage{titlesec,scalefnt}
-\RequirePackage{scalefnt}
-\RequirePackage{bytefield}
 \RequirePackage{ragged2e}
-\ifluatex\RequirePackage{relsize}\fi
-%\RequirePackage [smaller]{acronym}
+\RequirePackage{relsize}
 
 \newcommand\TODO{{\color{red}\bfseries TODO}}
 \RequirePackage{flafter} % places floats after they are first mentioned if possible
-%\RequirePackage [draft]{hyperref}
 \ifuob@print
     \RequirePackage [bookmarks=false]{hyperref}
 \else
@@ -207,21 +195,8 @@
 \RequirePackage {algorithmicx}
 \RequirePackage {algpseudocode} 
 %\setmathfont{cambria-math}
-% from http://tex.stackexchange.com/questions/47139/what-free-math-font-could-should-accompany-linux-libertine-and-linux-biolinum
-% use Libertine for the letters
-%\setmathfont[range=\mathit/{latin,Latin,num,Greek,greek}]{Libertinus Serif Italic}
-%\setmathfont[range=\mathbfit/{latin,Latin,num,Greek,greek}]{Libertinus Serif Bold Italic}
-%\setmathfont[range=\mathup/{latin,Latin,num,Greek,greek}, Numbers = {Proportional,Lining}]{Libertinus Serif}
-%\setmathfont[range=\mathbfup/{latin,Latin,num,Greek,greek}]{Libertinus Serif Bold}
-%\setmathfont[range={"2202}]{Linux Libertine O}% "02202 = \partial % doesn't work
-%\setmathfont[range={"221E}]{Linux Libertine O}% "0221E = \infty
-% etc. (list should be completed depending on needs)
-
-
-%\RequirePackage{interfaces-base}
 
 \RequirePackage{pgfplotstable}
-%\RequirePackage{tikz}
 \pgfplotsset{compat=newest}
 \usetikzlibrary{external,arrows,calc}
 \ifluatex
@@ -234,14 +209,14 @@
     numbers       = noendperiod,
     parskip       = half-,
     twoside       = semi,
-	%draft,
-	captions      = tableheading,
-%	toc           = listofnumbered,
+    %draft,
+    captions      = tableheading,
+%   toc           = listofnumbered,
     listof        = leveldown,
     listof        = totoc,
-	chapterprefix = true,
-	DIV           = 11,
-%	BCOR          = 7mm,
+    chapterprefix = true,
+    DIV           = 11,
+%   BCOR          = 7mm,
     titlepage     = firstiscover,
     footinclude   = false,
     headinclude   = false,
@@ -253,15 +228,13 @@
 \pagestyle{scrheadings}
 \setuptoc{toc}{numbered}
 %\setcounter{secnumdepth}{3}
+
 % customize dictum format:
 \setkomafont{dictumtext}{\itshape\small}
 \setkomafont{dictumauthor}{\normalfont}
 \renewcommand*\dictumwidth{.8\linewidth}
 \renewcommand*\dictumauthorformat[1]{--- #1}
 \renewcommand*\dictumrule{}
-
-%\crefname{algocf}{alg.}{algs.}
-%\Crefname{algocf}{Algorithm}{Algorithms}
 
 \ifuob@print\else
 \renewcommand*{\hyxmp@pdfa@id@schema}{%
@@ -288,28 +261,28 @@ ______</rdf:Description>^^J%
     \fi
 }
 \hypersetup {
-	hidelinks,
-	breaklinks,
-	linktocpage        = true,
-	unicode            = true,
-%	hyperfootnotes     = true,
-	bookmarksnumbered  = true,
-	bookmarksopen      = true,
-	pdfdisplaydoctitle = true,
-%	pdfpagelabels      = false,
-	plainpages         = false,
-%	pdfusetitle,
-	pdfauthor          = {\@author},
-	pdftitle           = {\@title},
-	pdfsubject         = {PhD Thesis},
-	pdfkeywords        = {},
-	pdflang            = en-GB,
-	pdfencoding        = auto,
-	pdfduplex          = DuplexFlipLongEdge,
-	pdfprintscaling    = None,
-%	draft,
-%	pdflicenseurl      = {http://creativecommons.org/licenses/by-nc-nd/4.0/},
-%	pdfcopyright       = {Copyright (C) 2015, Emma L. Tonkin},
+    hidelinks,
+    breaklinks,
+    linktocpage        = true,
+    unicode            = true,
+%   hyperfootnotes     = true,
+    bookmarksnumbered  = true,
+    bookmarksopen      = true,
+    pdfdisplaydoctitle = true,
+%   pdfpagelabels      = false,
+    plainpages         = false,
+%   pdfusetitle,
+    pdfauthor          = {\@author},
+    pdftitle           = {\@title},
+    pdfsubject         = {PhD Thesis},
+    pdfkeywords        = {},
+    pdflang            = en-GB,
+    pdfencoding        = auto,
+    pdfduplex          = DuplexFlipLongEdge,
+    pdfprintscaling    = None,
+%   draft,
+%   pdflicenseurl      = {http://creativecommons.org/licenses/by-nc-nd/4.0/},
+%   pdfcopyright       = {Copyright (C) 2015, Emma L. Tonkin},
 %    pdfinfo            = {
 %        CreationDate    = {\uob@pdfdate},
 %    }
@@ -318,21 +291,21 @@ ______</rdf:Description>^^J%
 
 \ifuob@print\else
 \bookmarksetup{%
-	open,
-	addtohook={%
-		\ifnum\bookmarkget{level}=0 %chapter
-			\bookmarksetup{bold}
-		\fi
-%		\ifnum\bookmarkget{level}=1 %section
-%			\bookmarksetup{}
-%		\fi
-		\ifnum\bookmarkget{level}=2 %subsection
-			\bookmarksetup{italic}
-		\fi
-%		\ifnum\bookmarkget{level}=3 %subsubsection
-%			\bookmarksetup{italic}
-%		\fi
-	}
+    open,
+    addtohook={%
+        \ifnum\bookmarkget{level}=0 %chapter
+            \bookmarksetup{bold}
+        \fi
+%       \ifnum\bookmarkget{level}=1 %section
+%           \bookmarksetup{}
+%       \fi
+        \ifnum\bookmarkget{level}=2 %subsection
+            \bookmarksetup{italic}
+        \fi
+%       \ifnum\bookmarkget{level}=3 %subsubsection
+%           \bookmarksetup{italic}
+%       \fi
+    }
 }
 \fi
 
@@ -344,16 +317,16 @@ ______</rdf:Description>^^J%
 ]{doclicense}
 
 \sisetup{
-%	group-separator = {,},
-	group-digits = integer,
-	detect-all = true,
-	range-units = single,
+%   group-separator = {,},
+    group-digits = integer,
+    detect-all   = true,
+    range-units  = single,
 }
 \ifluatex
     \sisetup{
         number-text-rm = \liningroman,
-        unit-text-rm = \liningroman,
-        text-rm = \liningroman,
+        unit-text-rm   = \liningroman,
+        text-rm        = \liningroman,
     }
 \fi
 
@@ -370,10 +343,10 @@ ______</rdf:Description>^^J%
     minnames     = 1,
     maxbibnames  = 4,
     minbibnames  = 2,
-	ibidtracker  = true,
-	block        = space,
-	eprint       = false,
-	defernumbers = true,
+    ibidtracker  = true,
+    block        = space,
+    eprint       = false,
+    defernumbers = true,
 }
 \DeclareNameAlias{default}{last-first}
 \setcounter{biburlnumpenalty}{100}
@@ -387,15 +360,15 @@ ______</rdf:Description>^^J%
       }
 }
 % The following definition is copied from authortitle.bbx/authoryear.bbx
-\defbibenvironment{nolabelbib}
-  {\list
-     {}
-     {\setlength{\leftmargin}{\bibhang}%
-      \setlength{\itemindent}{-\leftmargin}%
-      \setlength{\itemsep}{\bibitemsep}%
-      \setlength{\parsep}{\bibparsep}}}
-  {\endlist}
-  {\item}
+%\defbibenvironment{nolabelbib}
+%  {\list
+%     {}
+%     {\setlength{\leftmargin}{\bibhang}%
+%      \setlength{\itemindent}{-\leftmargin}%
+%      \setlength{\itemsep}{\bibitemsep}%
+%      \setlength{\parsep}{\bibparsep}}}
+%  {\endlist}
+%  {\item}
 %\setlength{\oddsidemargin}{0.9in}
 %\setlength{\evensidemargin}{0in}
 
@@ -434,7 +407,7 @@ ______</rdf:Description>^^J%
         framesep     = 2mm,
         linenos      = true,
         numbersep    = 5pt,
-    %	gobble       = 2,
+    %   gobble       = 2,
         fontsize     = \footnotesize,
         xleftmargin  = 20pt,
         xrightmargin = 20pt,
@@ -461,15 +434,8 @@ ______</rdf:Description>^^J%
 \let\slashold\slash
 \def\slash{\texorpdfstring{\slashold }{/}}
 
-% defining \lb command to emulate the gb4e package command
-% use as \lb{label} word]
-\newcommand\lb[1]{\hskip 0pt plus 1pt[\textsubscript{\tiny #1}}
-
-%\everymath{\displaystyle}
-
 % to allow multiple consecutive footnotes
 % as described in http://tex.stackexchange.com/a/62091/24263
-
 \let\oldFootnote\footnote
 \newcommand\nextToken\relax
 
@@ -478,6 +444,7 @@ ______</rdf:Description>^^J%
 
 \newcommand\isFootnote{%
     \ifx\footnote\nextToken\textsuperscript{,}\fi}
+%
 
 \let\oldfrontmatter\frontmatter
 \renewcommand\frontmatter{\oldfrontmatter \singlespacing}
@@ -494,8 +461,6 @@ ______</rdf:Description>^^J%
         \setlength{\parskip}{\z@}
         \enlargethispage{17mm}
 
-%        \newgeometry{textwidth=.80\textwidth}
-%\begin{ddcenter}
 % Title
         \centering
         \vglue 3cm 
@@ -569,6 +534,7 @@ ______</rdf:Description>^^J%
 \vskip 6\parskip
 
 SIGNED:~\makebox[55mm]{\dotfill}\hfill DATE:~\makebox[55mm]{\dotfill}
+\cleardoublepage
 % End of author's declaration
 
 
