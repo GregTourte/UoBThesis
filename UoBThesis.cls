@@ -529,9 +529,9 @@ ______</rdf:Description>^^J%
 
 \uob@author@declaration@text
 
-\vskip 3\parskip
+\vskip 1cm
 \@author
-\vskip 6\parskip
+\vskip 2cm
 
 SIGNED:~\makebox[55mm]{\dotfill}\hfill DATE:~\makebox[55mm]{\dotfill}
 \cleardoublepage
