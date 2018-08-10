@@ -51,10 +51,26 @@
 % Loading LuaTeX spefic packages
     \RequirePackage {fontspec,microtype}
     \defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
-    \ifuob@minion
+    \ifuob@minionthree
+        \setmainfont {Minion3}[
+            Numbers = {Proportional,OldStyle},
+            BoldFont= * semibold,
+            SizeFeatures = {
+                { Size = -9, Font = Minion3Caption},
+                { Size = 9-14 },
+                { Size = 14-24, Font = Minion3SubHead},
+                { Size = 24-, Font = Minion3Display},
+            }
+        ]
+        \newfontfamily\liningroman{Minion3}[
+            Numbers = {Proportional,Lining},
+            Ligatures = {TeX},
+            Scale = {MatchLowercase} ]
+    \else\ifuob@minion
         \setmainfont {Minion Pro}[
             Numbers = {Proportional,OldStyle},
-            BoldFont= * bold ]
+            BoldFont= * bold,
+        ]
         \newfontfamily\liningroman{Minion Pro}[
             Numbers = {Proportional,Lining},
             Ligatures = {TeX},
@@ -67,7 +83,7 @@
             Numbers = {Proportional,Lining},
             Ligatures = {TeX},
             Scale = {MatchLowercase} ]
-    \fi
+    \fi\fi
     \setsansfont {LibertinusSans}[
         Numbers = {Proportional,OldStyle} ]
     \setmonofont {Inconsolata zi4}[

@@ -9,6 +9,9 @@
 \newif\ifuob@minion\uob@minionfalse
 \DeclareOption{minion}{\uob@miniontrue}
 
+\newif\ifuob@minionthree\uob@minionthreefalse
+\DeclareOption{minion3}{\uob@minionthreetrue}
+
 \newif\ifuob@print\uob@printfalse
 \DeclareOption{print}{\uob@printtrue}
 
