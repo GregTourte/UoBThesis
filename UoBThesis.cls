@@ -87,7 +87,7 @@
     \fi\fi
     \setsansfont {LibertinusSans}[
         Numbers = {Proportional,OldStyle} ]
-    \setmonofont {Inconsolata zi4}[
+    \setmonofont {InconsolataN}[
         ItalicFont = *,
         ItalicFeatures = FakeSlant,
         RawFeature = -tlig;-trep,
@@ -109,7 +109,7 @@
         BoldFont= * bold ]
     \setsansfont {Libertinus Sans}[
         Numbers = {Proportional,OldStyle} ]
-    \setmonofont {Inconsolata zi4}[
+    \setmonofont {InconsolataN}[
         ItalicFont = *,
         ItalicFeatures = FakeSlant,
         RawFeature = -tlig;-trep,
