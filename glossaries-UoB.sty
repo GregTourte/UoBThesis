@@ -1,0 +1,59 @@
+% vim: ft=tex ts=4 sw=4 et
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{glossaries-UoB}[2018/08/01 University of Bristol PhD ]
+
+%\RequirePackage[shortcuts=acro]{glossaries-extra}
+
+\RequirePackage{tabu}
+\RequirePackage{longtable}
+
+\glsdisablehyper
+
+
+% https://tex.stackexchange.com/questions/269565/glossaries-how-to-customize-list-of-symbols-with-additional-column-for-units
+\newglossary[slg]{symbolslist}{syi}{syg}{List of Symbols}
+\glssetnoexpandfield{unit}
+\glsaddkey{unit}{---}{\glsentryunit}{\GLsentryunit}{\glsunit}{\Glsunit}{\GLSunit}
+
+%\glspatchtabularx
+\newglossarystyle{symbunitlong}{%
+    \setglossarystyle{long3col}% base this style on the list style
+    \renewenvironment{theglossary}{% Change the table type --> 3 columns
+    %    \tabulinesep=1mm
+        \begin{longtabu} to \textwidth [l]{@{}l @{\hskip 10mm} X[l]  X[-1,c] @{}}}%
+        {\end{longtabu}}%
+    %
+    \renewcommand*{\glossaryheader}{%  Change the table header
+        \rowfont{\bfseries}
+        Sign & Description & Unit \\
+        \midrule
+        \endhead
+        \addlinespace
+        \multicolumn{3}{@{}r@{}}{\footnotesize Continued on next page\dots}\\
+        \endfoot
+        \endlastfoot
+    }
+    \renewcommand*{\glossentry}[2]{%  Change the displayed items
+        \glstarget{##1}{\glossentryname{##1}} %
+        & \glossentrydesc{##1}% Description
+        & \glsunit{##1}  \tabularnewline
+    }
+}
+
+\newglossarystyle{acrlong}{%
+    \setglossarystyle{long3col}% base this style on the list style
+    \renewenvironment{theglossary}{% Change the table type --> 3 columns
+    %    \tabulinesep=1mm
+    \begin{longtabu} to \textwidth {@{}l X[l] >{\raggedleft}p{1.1\glspagelistwidth} @{}}}%
+        {\end{longtabu}}%
+    %
+    \renewcommand*{\glossaryheader}{}%  Change the table header
+    \renewcommand*{\glossentry}[2]{%  Change the displayed items
+        \glsentryitem{##1}\glstarget{##1}{\glossentryname{##1}} %
+        & \glossentrydesc{##1}% Description
+        & \mbox{##2} \tabularnewline
+    }
+}
+
+

@@ -52,15 +52,16 @@
     \RequirePackage {fontspec,microtype}
     \defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
     \ifuob@minionthree
-        \setmainfont {Minion3}[
-            Numbers = {Proportional,OldStyle},
-            BoldFont= * semibold,
+        \setmainfont {Minion 3}[
+            Numbers      = {Proportional,OldStyle},
             SizeFeatures = {
-                { Size = -9, Font = Minion3Caption},
-                { Size = 9-14 },
-                { Size = 14-24, Font = Minion3SubHead},
-                { Size = 24-, Font = Minion3Display},
-            }
+                { Size   = -9, Font = Minion 3 Caption},
+                { Size   = 9-14 },
+                { Size   = 14-24, Font = Minion 3 Subhead},
+                { Size   = 24-, Font = Minion 3 Display},
+            },
+            BoldFont     = * Semibold,
+            ItalicFont   = * Italic,
         ]
         \newfontfamily\liningroman{Minion3}[
             Numbers = {Proportional,Lining},
@@ -199,6 +200,10 @@
 \captionsetup[listing]{skip=10pt}
 \RequirePackage{ragged2e}
 \RequirePackage{relsize}
+
+% Load glossaries package and our custom glossaries style.
+\RequirePackage[acronyms,shortcuts,hyperfirst=false,nomain,toc,section=section]{glossaries}
+\RequirePackage{glossaries-UoB}
 
 \newcommand\TODO{{\color{red}\bfseries TODO}}
 \RequirePackage{flafter} % places floats after they are first mentioned if possible
@@ -399,7 +404,7 @@ ______</rdf:Description>^^J%
 
 
 %\renewcommand{\em}{\itshape}
-\newcommand*\ac[1]{\textsmaller{#1}}
+%\newcommand*\ac[1]{\textsmaller{#1}}
 %\AtBeginEnvironment{tabu}{%
 %  \liningroman}
  %\addfontfeature{Numbers={Monospaced,Lining}}
@@ -563,4 +568,30 @@ SIGNED:~\makebox[55mm]{\dotfill}\hfill DATE:~\makebox[55mm]{\dotfill}
 \fi
 
 }
+
+%
+% Chapter title formatting
+%
+\renewcommand*{\chapterformat}{%
+    \mbox{~\resizebox{!}{2cm}{\rotatebox{90}{\chapapp}} \resizebox{!}{2cm}{\liningnums{\thechapter}\autodot}}%
+}
+
+\renewcommand\chapterlinesformat[3]{%
+    \parskip=0pt%
+    \lineskip=0pt%
+    \parindent=0pt%
+    \topskip=0pt%
+    \baselineskip=0pt%
+    \hrulefill\smash{#2}\par\vskip 1.25ex\nobreak%
+    \parbox[b]{\textwidth}{\singlespace\raggedright#3}\par\nobreak\vskip 1ex%\bigskip
+    \hrule%
+}
+
+\RedeclareSectionCommand[afterskip=2\baselineskip, beforeskip=5cm]{chapter}
+%
+% End of Chapter title formatting
+%
+
+\setkomafont{disposition}{\sffamily\mdseries}
+\addtokomafont{chapterentry}{\bfseries}
 
