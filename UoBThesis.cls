@@ -1,5 +1,13 @@
-% vim: ft=tex ts=4 sw=4 et
-
+%
+% UoB-Thesis/UoBThesis.cls
+%
+% Developed by Greg Tourte <artourter@gmail.com>
+% Copyright (c) 2018 The University of Bristol
+% All rights reserved.
+%
+% Changelog:
+% 30/07/2018 - created
+%
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{UoBThesis}[2018/08/01 University of Bristol PhD Thesis Class]
 
@@ -582,12 +590,15 @@ ______</rdf:Description>^^J%
     \parindent=0pt%
     \topskip=0pt%
     \baselineskip=0pt%
-    \hrulefill\smash{#2}\par\vskip 1.25ex\nobreak%
+%    \ifstr{#2}{}%
+%       {\hrule\par\vskip 1.25ex\nobreak}%
+%        {}
+        {\hrulefill\smash{#2}\par\vskip 1ex\nobreak}%
     \parbox[b]{\textwidth}{\singlespace\raggedright#3}\par\nobreak\vskip 1ex%\bigskip
     \hrule%
 }
 
-\RedeclareSectionCommand[afterskip=2\baselineskip, beforeskip=5cm]{chapter}
+\RedeclareSectionCommand[afterskip=2\baselineskip, beforeskip=5cm, innerskip=0pt]{chapter}
 %
 % End of Chapter title formatting
 %
@@ -595,3 +606,5 @@ ______</rdf:Description>^^J%
 \setkomafont{disposition}{\sffamily\mdseries}
 \addtokomafont{chapterentry}{\bfseries}
 
+% vim: ft=tex ts=4 sw=4 et
+% vim600: fdl=0 fdm=marker fdc=3 spl=en_gb spell

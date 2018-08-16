@@ -1,4 +1,13 @@
-% vim: ft=tex ts=4 sw=4 et:
+%
+% UoB-Thesis/UoBThesis.inc
+%
+% Developed by Greg Tourte <artourter@gmail.com>
+% Copyright (c) 2018 The University of Bristol
+% All rights reserved.
+%
+% Changelog:
+% 30/07/2018 - created
+%
 
 \newif\ifuob@cclicense\uob@cclicensefalse
 \DeclareOption{cclicense}{\uob@cclicensetrue}
@@ -74,3 +83,6 @@ of, others, is indicated as such.
 
 Any views expressed in the thesis are those of the author.%
 }
+
+% vim: ft=tex ts=4 sw=4 et
+% vim600: fdl=0 fdm=marker fdc=3 spl=en_gb spell
