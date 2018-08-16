@@ -550,11 +550,11 @@ ______</rdf:Description>^^J%
 
 \uob@author@declaration@text
 
-\vskip 1cm
+\vskip 10mm
 \@author
-\vskip 2cm
+\vskip 15mm
 
-SIGNED:~\makebox[55mm]{\dotfill}\hfill DATE:~\makebox[55mm]{\dotfill}
+\textsc{signed}:~\makebox[60mm]{\dotfill}\hfill\textsc{date}:~\makebox[60mm]{\dotfill}
 \cleardoublepage
 % End of author's declaration
 
