@@ -484,7 +484,31 @@ ______</rdf:Description>^^J%
 
 \setlength{\uobtitlecoverwidth}{\textwidth}
 
+%{{{ Definition of UoB Colours
+% Primary brand colours
+\definecolor{UoBRed}{cmyk}{0,.91,.72,.23}
+\definecolor{UoBCoolGrey}{cmyk}{.07,.91,.72,.23}
+
+% Secondary Colours
+% Bright Colours
+\definecolor{UoBBrightAqua}{cmyk}{.81,0,.36,0}
+\definecolor{UoBBrightBlue}{cmyk}{.69,0,.13,0}
+\definecolor{UoBBrightOrange}{cmyk}{0,.65,.95,0}
+\definecolor{UoBBrightPurple}{cmyk}{.53,.61,0,0}
+\definecolor{UoBBrightPink}{cmyk}{.04,.88,0,0}
+\definecolor{UoBBrightLime}{cmyk}{.34,0,1.00,0}
+% Dark Colours
+\definecolor{UoBDarkAqua}{cmyk}{1,.17,.33,.66}
+\definecolor{UoBDarkBlue}{cmyk}{1,.70,.08,.54}
+\definecolor{UoBDarkOrange}{cmyk}{.13,.83,1.,.62}
+\definecolor{UoBDarkPurple}{cmyk}{.81,1.0,.06,.35}
+\definecolor{UoBDarkPink}{cmyk}{.33,1.0,.09,.45}
+\definecolor{UoBDarkLime}{cmyk}{.58,.09,.95,.64}
+%}}}
+
+%{{{ Definition of maketile
 \renewcommand{\maketitle}{%
+    %{{{ Title page
     \begin{titlepage}
         \setlength{\parindent}{\z@}
         \setlength{\parskip}{\z@}
@@ -532,7 +556,9 @@ ______</rdf:Description>^^J%
             %%\input{wordcount/wordcount} words
         \fi
     \end{titlepage}
+    %}}}
 
+    %{{{ License/colophon
 % Placing CC license if requested on verso of titlepage
     \ifuob@cclicense
         \newpage
@@ -541,8 +567,9 @@ ______</rdf:Description>^^J%
         \vglue \fill
         \doclicenseThis
     \fi
+    %}}}
 
-
+    %{{{ Abstract
 %
 % Abstract
 %
@@ -552,7 +579,9 @@ ______</rdf:Description>^^J%
         \@abstract
     }
     \fi
+    %}}}
 
+    %{{{ Author's Declaration
 % Taken from the PGR code annex 4: http://www.bristol.ac.uk/academic-quality/pg/pgrcode/annex4/
 \chapter{Author's Declaration}
 
@@ -565,8 +594,9 @@ ______</rdf:Description>^^J%
 \textsc{signed}:~\makebox[60mm]{\dotfill}\hfill\textsc{date}:~\makebox[60mm]{\dotfill}
 \cleardoublepage
 % End of author's declaration
+    %}}}
 
-
+%{{{ Acknowledgements
 % Place acknowledgements in its own chapter if it is defined
 \ifx\@acknowledgements\@empty \else {
     \chapter{Acknowledgements}
@@ -574,14 +604,16 @@ ______</rdf:Description>^^J%
     \@acknowledgements\par
 }
 \fi
+%}}}
 
 }
+%}}}
 
 %
 % Chapter title formatting
 %
 \renewcommand*{\chapterformat}{%
-    \mbox{~\resizebox{!}{2cm}{\rotatebox{90}{\chapapp}} \resizebox{!}{2cm}{\liningnums{\thechapter}\autodot}}%
+    \mbox{~\resizebox{!}{2cm}{\rotatebox{90}{\chapapp}} \resizebox{!}{2cm}{\textcolor{gray}{\liningnums{\thechapter}\autodot}}}%
 }
 
 \renewcommand\chapterlinesformat[3]{%
@@ -605,6 +637,7 @@ ______</rdf:Description>^^J%
 
 \setkomafont{disposition}{\sffamily\mdseries}
 \addtokomafont{chapterentry}{\bfseries}
+\addtokomafont{paragraph}{\bfseries}
 
 % vim: ft=tex ts=4 sw=4 et
 % vim600: fdl=0 fdm=marker fdc=3 spl=en_gb spell
