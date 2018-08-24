@@ -648,8 +648,8 @@ ______</rdf:Description>^^J%
             outer sep = 0,
             },
         chptnum/.style = {
-            draw,
-            color = white,
+ %           draw,
+ %           color = white,
             text = gray,
             fill = white,
             overlay,
@@ -661,45 +661,17 @@ ______</rdf:Description>^^J%
         \draw[thick,overlay] (chaptertitle.south west) -- (chaptertitle.south east);
         \ifstr{#2}{}{}{
             \node[chptnum] (chapternumber) at ($(chaptertitle.north east) - (0,.5pt)$) {\resizebox{!}{55pt}{#2}};
-            \draw[line width=5pt, white, overlay] ($(chapternumber.south west) - (2.5pt,0)$) -- ($(chapternumber.north west) - (2.5pt,0)$);
+            \IfChapterUsesPrefixLine{%
+                \node[rotate=90,overlay,inner ysep=5pt, fill=white, anchor= south] (chaptername) at (chapternumber.west) {\resizebox{56pt}{!}{\chapapp}};
+            }{%
+                \draw[line width=5pt, white, overlay] ($(chapternumber.south west) - (2.5pt,0)$) -- ($(chapternumber.north west) - (2.5pt,0)$);
+            }
         }
     \end{tikzpicture}
 \end{singlespace}
 }
 
-\renewcommand\chapterlineswithprefixformat[3]{%
-\begin{singlespace}
-    \parskip=0pt%
-    \lineskip=0pt%
-    \parindent=0pt%
-    \topskip=0pt%
-    \baselineskip=0pt%
-    
-    \begin{tikzpicture}[
-        remember picture,
-        every node/.style = {
-            inner sep = 0,
-            outer sep = 0,
-            },
-        chptnum/.style = {
-            draw,
-            color = white,
-            text = gray,
-            fill = white,
-            overlay,
-            anchor = south east,
-            },
-        ]
-        \node[text width=\textwidth, inner xsep=0, inner ysep=13, anchor=north west] (chaptertitle) at (0,0) {\vphantom{j}#3};
-        \draw[thick,overlay] (chaptertitle.north west) -- (chaptertitle.north east);
-        \draw[thick,overlay] (chaptertitle.south west) -- (chaptertitle.south east);
-        \ifstr{#2}{}{}{
-            \node[chptnum] (chapternumber) at ($(chaptertitle.north east) - (0,.5pt)$) {\resizebox{!}{55pt}{#2}};
-            \node[rotate=90,overlay,inner ysep=5pt, fill=white, anchor= south] (chaptername) at (chapternumber.west) {\resizebox{56pt}{!}{\chapapp}};
-        }
-    \end{tikzpicture}
-\end{singlespace}
-}
+\let\chapterlineswithprefixformat\chapterlinesformat
 
 \RedeclareSectionCommand[afterskip=20pt, beforeskip=5cm, innerskip=0pt]{chapter}
 %
