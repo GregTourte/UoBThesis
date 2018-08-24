@@ -624,66 +624,88 @@ ______</rdf:Description>^^J%
 }
 %}}}
 
+%{{{ Chapter title formating
 %
 % Chapter title formatting
 %
 \renewcommand*{\chapterformat}{%
-%    \mbox{~\resizebox{!}{2cm}{\rotatebox{90}{\chapapp}} \resizebox{!}{2cm}{\textcolor{gray}{\liningnums{\thechapter}\autodot}}}%
-    \mbox{\liningnums{\thechapter}\autodot}%
+    \mbox{\liningnums{\thechapter}}%
 }
+\renewcommand*{\chapterheadmidvskip}{}
 
 \renewcommand\chapterlinesformat[3]{%
-    \begin{singlespace}
+\begin{singlespace}
     \parskip=0pt%
     \lineskip=0pt%
     \parindent=0pt%
     \topskip=0pt%
     \baselineskip=0pt%
     
- % \null\vskip 5cm
- % \parindent=0pt
-  \begin{tikzpicture}[
-  	remember picture,
-    every node/.style = {
-      inner sep = 0,
-      outer sep = 0,
- %     font = \sffamily,
-    },
-    chptnum/.style = {
-%      rectangle,
-      draw,
-%      very thick,
-      color = white,
-      text = gray,
-      fill = white,
-      overlay,
-%      scale = 6,
-      anchor = south east,
-    },
-  ]
-  \node[text width=\textwidth, inner xsep=0, inner ysep=13, anchor=north west] (chaptertitle) at (0,0) {\vphantom{j}#3};
-    \draw[thick] (chaptertitle.north west) -- (chaptertitle.north east);
-    \draw[thick] (chaptertitle.south west) -- (chaptertitle.south east);
-    \ifstr{#2}{}{}{
-        \node[chptnum] (chapternumber) at ($(chaptertitle.north east) - (0,.5pt)$) {\resizebox{!}{55pt}{#2}};
-        \node[rotate=90,overlay,inner ysep=5pt, fill=white, anchor= south] (chaptername) at (chapternumber.west) {\resizebox{56pt}{!}{\chapapp}};
-    }
-%    \node[rotate=90,overlay,inner ysep=5pt, fill=white, anchor= south] (chaptername) at (chapternumber.west) {};
-  \end{tikzpicture}
+    \begin{tikzpicture}[
+        remember picture,
+        every node/.style = {
+            inner sep = 0,
+            outer sep = 0,
+            },
+        chptnum/.style = {
+            draw,
+            color = white,
+            text = gray,
+            fill = white,
+            overlay,
+            anchor = south east,
+            },
+        ]
+        \node[text width=\textwidth, inner xsep=0, inner ysep=13, anchor=north west] (chaptertitle) at (0,0) {\vphantom{j}#3};
+        \draw[thick,overlay] (chaptertitle.north west) -- (chaptertitle.north east);
+        \draw[thick,overlay] (chaptertitle.south west) -- (chaptertitle.south east);
+        \ifstr{#2}{}{}{
+            \node[chptnum] (chapternumber) at ($(chaptertitle.north east) - (0,.5pt)$) {\resizebox{!}{55pt}{#2}};
+            \draw[line width=5pt, white, overlay] ($(chapternumber.south west) - (2.5pt,0)$) -- ($(chapternumber.north west) - (2.5pt,0)$);
+        }
+    \end{tikzpicture}
 \end{singlespace}
+}
 
-%    \ifstr{#2}{}%
-%       {\hrule\par\vskip 1.25ex\nobreak}%
-%        {}
-%        {\hrulefill\smash{#2}\par\vskip 1ex\nobreak}%
-%    \parbox[b]{\textwidth}{\singlespace\raggedright#3}\par\nobreak\vskip 1ex%\bigskip
-%    \hrule%
+\renewcommand\chapterlineswithprefixformat[3]{%
+\begin{singlespace}
+    \parskip=0pt%
+    \lineskip=0pt%
+    \parindent=0pt%
+    \topskip=0pt%
+    \baselineskip=0pt%
+    
+    \begin{tikzpicture}[
+        remember picture,
+        every node/.style = {
+            inner sep = 0,
+            outer sep = 0,
+            },
+        chptnum/.style = {
+            draw,
+            color = white,
+            text = gray,
+            fill = white,
+            overlay,
+            anchor = south east,
+            },
+        ]
+        \node[text width=\textwidth, inner xsep=0, inner ysep=13, anchor=north west] (chaptertitle) at (0,0) {\vphantom{j}#3};
+        \draw[thick,overlay] (chaptertitle.north west) -- (chaptertitle.north east);
+        \draw[thick,overlay] (chaptertitle.south west) -- (chaptertitle.south east);
+        \ifstr{#2}{}{}{
+            \node[chptnum] (chapternumber) at ($(chaptertitle.north east) - (0,.5pt)$) {\resizebox{!}{55pt}{#2}};
+            \node[rotate=90,overlay,inner ysep=5pt, fill=white, anchor= south] (chaptername) at (chapternumber.west) {\resizebox{56pt}{!}{\chapapp}};
+        }
+    \end{tikzpicture}
+\end{singlespace}
 }
 
 \RedeclareSectionCommand[afterskip=20pt, beforeskip=5cm, innerskip=0pt]{chapter}
 %
 % End of Chapter title formatting
 %
+%}}}
 
 \setkomafont{disposition}{\sffamily\mdseries}
 \addtokomafont{chapterentry}{\bfseries}
