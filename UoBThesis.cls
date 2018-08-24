@@ -63,10 +63,10 @@
         \setmainfont {Minion 3}[
             Numbers      = {Proportional,OldStyle},
             SizeFeatures = {
-                { Size   = -9, Font = Minion 3 Caption},
-                { Size   = 9-14 },
-                { Size   = 14-24, Font = Minion 3 Subhead},
-                { Size   = 24-, Font = Minion 3 Display},
+                { Size   = -9.9, Font = Minion 3 Caption },
+                { Size   = 9.9-13.9 },
+                { Size   = 13.9-25.9, Font = Minion 3 Subhead },
+                { Size   = 25.9-, Font = Minion 3 Display },
             },
             BoldFont     = * Semibold,
             ItalicFont   = * Italic,
@@ -210,7 +210,7 @@
 \RequirePackage{relsize}
 
 % Load glossaries package and our custom glossaries style.
-\RequirePackage[acronyms,shortcuts,hyperfirst=false,nomain,toc,section=section]{glossaries}
+\RequirePackage[xindy,acronyms,shortcuts,hyperfirst=false,nomain,toc,section=section]{glossaries}
 \RequirePackage{glossaries-UoB}
 
 \newcommand\TODO{{\color{red}\bfseries TODO}}
@@ -227,9 +227,9 @@
 
 \RequirePackage{pgfplotstable}
 \pgfplotsset{compat=newest}
-\usetikzlibrary{external,arrows,calc}
+\usetikzlibrary{external,arrows,calc,positioning}
 \ifluatex
-\tikzset{external/system call={lualatex \tikzexternalcheckshellescape -shell-escape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
+%\tikzset{external/system call={lualatex \tikzexternalcheckshellescape -shell-escape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
 \fi
 %\tikzexternalize[prefix=figures/]
 
@@ -337,13 +337,15 @@ ______</rdf:Description>^^J%
     }
 }
 \fi
-
+\ifuob@cclicense
 \RequirePackage[
     type          = {CC},
     modifier      = {by},
     imagemodifier = {-eu},
+    imagewidth    = {8em},
     version       = {4.0},
 ]{doclicense}
+\fi
 
 \sisetup{
 %   group-separator = {,},
@@ -424,7 +426,8 @@ ______</rdf:Description>^^J%
     \AfterEndEnvironment{minted}{\end{singlespace}}
     \renewcommand{\theFancyVerbLine}{
     \ifluatex
-        \fontspec[Numbers = {Lining,Monospaced}]{Libertinus Serif}
+        %\fontspec[Numbers = {Lining,Monospaced}]{Libertinus Serif}
+        \addfontfeature{Numbers={Monospaced,Lining}}
     \fi
     \color[rgb]{0.5,0.5,0.5}\scriptsize\squelch{\arabic{FancyVerbLine}}
     }
@@ -566,6 +569,18 @@ ______</rdf:Description>^^J%
         \thispagestyle{empty}
         \vglue \fill
         \doclicenseThis
+        \clearpage
+    \fi
+    %}}}
+
+    %{{{ Dedication
+    \ifx\@dedication\@empty \else
+        \thispagestyle{empty}
+        \null \vspace{\stretch{1}}
+        {\raggedleft
+        \usekomafont{dedication}\@dedication\par}
+        \vspace{\stretch{2}}
+        \cleardoublepage
     \fi
     %}}}
 
@@ -613,24 +628,59 @@ ______</rdf:Description>^^J%
 % Chapter title formatting
 %
 \renewcommand*{\chapterformat}{%
-    \mbox{~\resizebox{!}{2cm}{\rotatebox{90}{\chapapp}} \resizebox{!}{2cm}{\textcolor{gray}{\liningnums{\thechapter}\autodot}}}%
+%    \mbox{~\resizebox{!}{2cm}{\rotatebox{90}{\chapapp}} \resizebox{!}{2cm}{\textcolor{gray}{\liningnums{\thechapter}\autodot}}}%
+    \mbox{\liningnums{\thechapter}\autodot}%
 }
 
 \renewcommand\chapterlinesformat[3]{%
+    \begin{singlespace}
     \parskip=0pt%
     \lineskip=0pt%
     \parindent=0pt%
     \topskip=0pt%
     \baselineskip=0pt%
+    
+ % \null\vskip 5cm
+ % \parindent=0pt
+  \begin{tikzpicture}[
+  	remember picture,
+    every node/.style = {
+      inner sep = 0,
+      outer sep = 0,
+ %     font = \sffamily,
+    },
+    chptnum/.style = {
+%      rectangle,
+      draw,
+%      very thick,
+      color = white,
+      text = gray,
+      fill = white,
+      overlay,
+%      scale = 6,
+      anchor = south east,
+    },
+  ]
+  \node[text width=\textwidth, inner xsep=0, inner ysep=13, anchor=north west] (chaptertitle) at (0,0) {\vphantom{j}#3};
+    \draw[thick] (chaptertitle.north west) -- (chaptertitle.north east);
+    \draw[thick] (chaptertitle.south west) -- (chaptertitle.south east);
+    \ifstr{#2}{}{}{
+        \node[chptnum] (chapternumber) at ($(chaptertitle.north east) - (0,.5pt)$) {\resizebox{!}{55pt}{#2}};
+        \node[rotate=90,overlay,inner ysep=5pt, fill=white, anchor= south] (chaptername) at (chapternumber.west) {\resizebox{56pt}{!}{\chapapp}};
+    }
+%    \node[rotate=90,overlay,inner ysep=5pt, fill=white, anchor= south] (chaptername) at (chapternumber.west) {};
+  \end{tikzpicture}
+\end{singlespace}
+
 %    \ifstr{#2}{}%
 %       {\hrule\par\vskip 1.25ex\nobreak}%
 %        {}
-        {\hrulefill\smash{#2}\par\vskip 1ex\nobreak}%
-    \parbox[b]{\textwidth}{\singlespace\raggedright#3}\par\nobreak\vskip 1ex%\bigskip
-    \hrule%
+%        {\hrulefill\smash{#2}\par\vskip 1ex\nobreak}%
+%    \parbox[b]{\textwidth}{\singlespace\raggedright#3}\par\nobreak\vskip 1ex%\bigskip
+%    \hrule%
 }
 
-\RedeclareSectionCommand[afterskip=2\baselineskip, beforeskip=5cm, innerskip=0pt]{chapter}
+\RedeclareSectionCommand[afterskip=20pt, beforeskip=5cm, innerskip=0pt]{chapter}
 %
 % End of Chapter title formatting
 %

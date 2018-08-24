@@ -57,6 +57,10 @@
 \newcommand*{\wordcount}[1]{\gdef\@wordcount{#1}}
 \newkomafont{wordcount}{\normalfont\normalsize}
 %
+%\newcommand*{\@dedication}{}
+%\newcommand*{\dedication}[1]{\gdef\@dedication{#1}}
+%\newkomafont{dedication}{\normalfont\normalsize}
+%
 \newcommand*{\@abstract}{}
 \newcommand*{\abstract}[1]{\gdef\@abstract{#1}}
 \newkomafont{abstract}{\normalfont\normalsize}
