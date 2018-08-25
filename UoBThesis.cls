@@ -36,7 +36,7 @@
 
 \input{UoBThesis.inc}
 
-\ifuob@print
+\ifuob@uobthesis@print
     \ifluatex
         \pdfvariable minorversion 4
     \else\ifpdf
@@ -49,7 +49,7 @@
 \RequirePackage{scrlayer-scrpage}
 \RequirePackage{mathtools}
 %\PassOptionsToPackage{pdfa}{hyperref}
-\ifuob@print\else
+\ifuob@uobthesis@print\else
     \AfterPackage!{hyperref}{\RequirePackage{bookmark}}
     \AfterPackage!{hyperref}{\RequirePackage{hyperxmp}}
 \fi
@@ -59,7 +59,7 @@
 % Loading LuaTeX spefic packages
     \RequirePackage {fontspec,microtype}
     \defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
-    \ifuob@minionthree
+    \ifuob@uobthesis@minionthree
         \setmainfont {Minion 3}[
             Numbers      = {Proportional,OldStyle},
             SizeFeatures = {
@@ -75,7 +75,7 @@
             Numbers = {Proportional,Lining},
             Ligatures = {TeX},
             Scale = {MatchLowercase} ]
-    \else\ifuob@minion
+    \else\ifuob@uobthesis@minion
         \setmainfont {Minion Pro}[
             Numbers = {Proportional,OldStyle},
             BoldFont= * bold,
@@ -215,15 +215,14 @@
 
 \newcommand\TODO{{\color{red}\bfseries TODO}}
 \RequirePackage{flafter} % places floats after they are first mentioned if possible
-\ifuob@print
+\ifuob@uobthesis@print
     \RequirePackage [bookmarks=false]{hyperref}
 \else
     \RequirePackage {hyperref}
 \fi
-\RequirePackage {algorithm}
-\RequirePackage {algorithmicx}
-\RequirePackage {algpseudocode} 
-%\setmathfont{cambria-math}
+%\RequirePackage {algorithm}
+%\RequirePackage {algorithmicx}
+%\RequirePackage {algpseudocode} 
 
 \RequirePackage{pgfplotstable}
 \pgfplotsset{compat=newest}
@@ -265,7 +264,7 @@
 \renewcommand*\dictumauthorformat[1]{--- #1}
 \renewcommand*\dictumrule{}
 
-\ifuob@print\else
+\ifuob@uobthesis@print\else
 \renewcommand*{\hyxmp@pdfa@id@schema}{%
   \ifHy@pdfa
     \hyxmp@add@to@xml{%
@@ -316,9 +315,9 @@ ______</rdf:Description>^^J%
 %        CreationDate    = {\uob@pdfdate},
 %    }
 }
-\ifuob@print\hypersetup{draft}\fi
+\ifuob@uobthesis@print\hypersetup{draft}\fi
 
-\ifuob@print\else
+\ifuob@uobthesis@print\else
 \bookmarksetup{%
     open,
     addtohook={%
@@ -337,7 +336,7 @@ ______</rdf:Description>^^J%
     }
 }
 \fi
-\ifuob@cclicense
+\ifuob@uobthesis@cclicense
 \RequirePackage[
     type          = {CC},
     modifier      = {by},
@@ -420,7 +419,7 @@ ______</rdf:Description>^^J%
  %\addfontfeature{Numbers={Monospaced,Lining}}
  %}
 
-\ifx\uob@minted {
+\ifx\uob@uobthesis@minted {
     \RequirePackage {minted}
     \BeforeBeginEnvironment{minted}{\begin{singlespace}}
     \AfterEndEnvironment{minted}{\end{singlespace}}
@@ -531,8 +530,15 @@ ______</rdf:Description>^^J%
 %
 %
 %% University Crest
-        \vskip \fill
-        {\centering\includegraphics[width=5cm]{Images/Bristol-uni-logo-colour}}
+        \ifcase\uobthesis@logo
+        \or
+            \vskip \fill
+            {\centering\includegraphics[width=5cm]{Images/Bristol-uni-logo-colour}}
+        \or
+            \vskip \fill
+            {\centering\includegraphics[width=2.5cm]{Images/Bristol-uni-crest-colour}}
+        \else
+        \fi
         \vskip \fill
 
 %% Declaration
@@ -563,7 +569,7 @@ ______</rdf:Description>^^J%
 
     %{{{ License/colophon
 % Placing CC license if requested on verso of titlepage
-    \ifuob@cclicense
+    \ifuob@uobthesis@cclicense
         \newpage
         \enlargethispage{2cm}
         \thispagestyle{empty}
