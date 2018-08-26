@@ -575,12 +575,12 @@ ______</rdf:Description>^^J%
         \thispagestyle{empty}
         \vglue \fill
         \doclicenseThis
-        \clearpage
     \fi
     %}}}
 
     %{{{ Dedication
     \ifx\@dedication\@empty \else
+        \cleardoublepage
         \thispagestyle{empty}
         \null \vspace{\stretch{1}}
         {\raggedleft
