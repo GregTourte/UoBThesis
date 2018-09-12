@@ -8,27 +8,31 @@
 % Changelog:
 % 30/07/2018 - created
 %
+\RequirePackage{xkeyval}
 
-\newif\ifuob@cclicense\uob@cclicensefalse
-\DeclareOption{cclicense}{\uob@cclicensetrue}
+\define@boolkey[uob]{uobthesis}{cclicense}[true]{}
+\setkeys[uob]{uobthesis}{cclicense=false}
 
-\newif\ifuob@minted\uob@mintedfalse
-\DeclareOption{minted}{\uob@mintedtrue}
+\define@choicekey*[uob]{uobthesis}{logo}[\val\logonr]{none,full,crest}[full]{\def\uobthesis@logo{\logonr}}
+\setkeys[uob]{uobthesis}{logo=full}
 
-\newif\ifuob@minion\uob@minionfalse
-\DeclareOption{minion}{\uob@miniontrue}
+\define@boolkey[uob]{uobthesis}{minted}[true]{}
+\setkeys[uob]{uobthesis}{minted=false}
 
-\newif\ifuob@minionthree\uob@minionthreefalse
-\DeclareOption{minion3}{\uob@minionthreetrue}
+\define@boolkey[uob]{uobthesis}{print}[true]{}
+\setkeys[uob]{uobthesis}{print=false}
 
-\newif\ifuob@print\uob@printfalse
-\DeclareOption{print}{\uob@printtrue}
+\define@boolkey[uob]{uobthesis}{minion}[true]{}
+\setkeys[uob]{uobthesis}{minion=false}
 
-\ProcessOptions\relax
+\define@boolkey[uob]{uobthesis}{minionthree}[true]{}
+\setkeys[uob]{uobthesis}{minionthree=false}
 
-\RequirePackage{pgfkeys}
-\RequirePackage{pgfopts}
+\DeclareOptionX*{
+    \ClassError{UoBThesis}{Unknown option ‘\CurrentOption’}%
+}
 
+\ProcessOptionsX[uob]<uobthesis>
 
 \setkomafont{title}{\sffamily\Huge\bfseries}
 \newlength{\uobtitlecoverwidth}
