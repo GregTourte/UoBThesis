@@ -74,7 +74,9 @@
         \newfontfamily\liningroman{Minion3}[
             Numbers = {Proportional,Lining},
             Ligatures = {TeX},
-            Scale = {MatchLowercase} ]
+            Scale = {MatchLowercase},
+            RawFeature = {+case},
+            ]
     \else\ifuob@minion
         \setmainfont {Minion Pro}[
             Numbers = {Proportional,OldStyle},
@@ -83,7 +85,9 @@
         \newfontfamily\liningroman{Minion Pro}[
             Numbers = {Proportional,Lining},
             Ligatures = {TeX},
-            Scale = {MatchLowercase} ]
+            Scale = {MatchLowercase},
+            RawFeature = {+case},
+            ]
     \else
         \setmainfont {Libertinus Serif}[
             Numbers = {Proportional,OldStyle},
@@ -91,7 +95,9 @@
         \newfontfamily\liningroman{Libertinus Serif}[
             Numbers = {Proportional,Lining},
             Ligatures = {TeX},
-            Scale = {MatchLowercase} ]
+            Scale = {MatchLowercase},
+            RawFeature = {+case},
+            ]
     \fi\fi
     \setsansfont {LibertinusSans}[
         Numbers = {Proportional,OldStyle} ]
@@ -125,7 +131,9 @@
     \newfontfamily\liningroman{Libertinus Serif}[
         Numbers = {Proportional,Lining},
         Ligatures = {TeX},
-        Scale = {MatchLowercase} ]
+        Scale = {MatchLowercase},
+        RawFeature = {+case},
+        ]
     \RequirePackage[math-style=TeX]{unicode-math}
     \setmathfont{Libertinus Math}
 
@@ -160,7 +168,7 @@
 \RequirePackage [version=4]{mhchem}
 \ifPDFTeX\else 
     \mhchemoptions{%
-        textfontcommand = \addfontfeature{Numbers = {Lining, Monospaced}, RawFeature = {-onum,-pnum,+tnum}},%
+        textfontcommand = \addfontfeature{Numbers = {Lining, Monospaced}, RawFeature = {-onum,-pnum,+tnum,+case}},%
     }
 \fi
 
@@ -427,7 +435,7 @@ ______</rdf:Description>^^J%
     \renewcommand{\theFancyVerbLine}{
     \ifluatex
         %\fontspec[Numbers = {Lining,Monospaced}]{Libertinus Serif}
-        \addfontfeature{Numbers={Monospaced,Lining}}
+        \addfontfeature{Numbers={Monospaced,Lining}, RawFeature = {+case}}
     \fi
     \color[rgb]{0.5,0.5,0.5}\scriptsize\squelch{\arabic{FancyVerbLine}}
     }
