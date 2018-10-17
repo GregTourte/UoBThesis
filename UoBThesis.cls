@@ -13,22 +13,35 @@
 
 
 \RequirePackage{iftex,ifpdf,ifxetex,ifluatex}
+
+% from https://tex.stackexchange.com/a/47579/12332
+\newif\ifxetexorluatex
+\ifxetex
+  \xetexorluatextrue
+\else
+  \ifluatex
+    \xetexorluatextrue
+  \else
+    \xetexorluatexfalse
+  \fi
+\fi
+
 \ifluatex
     \pdfvariable minorversion 7
-    \pdfvariable pageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
-    \pdfextension catalog{%
-        /OutputIntents [ <<
-        /Type /OutputIntent
-        /S/GTS_PDFA2
-        /DestOutputProfile \the\numexpr\pdffeedback lastobj\relax\space 0 R
-        /OutputConditionIdentifier (eciRGB v2)
-        /Info(eciRGB v2)
-        >> ]
-    }
+    \pdfvariable pageattr {/Group << /S /Transparency /I true /CS /DeviceCMYK>>}
+ %   \pdfextension catalog{%
+ %       /OutputIntents [ <<
+ %       /Type /OutputIntent
+ %       /S/GTS_PDFA2
+ %       /DestOutputProfile \the\numexpr\pdffeedback lastobj\relax\space 0 R
+ %       /OutputConditionIdentifier (eciRGB v2)
+ %       /Info(eciRGB v2)
+ %       >> ]
+ %   }
 
 \else\ifpdf
     \pdfminorversion 7
-    \pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
+    \pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceCMYK>>}
 \fi\fi
 
 %% PRELIMINARY DECLARATIONS
@@ -176,7 +189,7 @@
 \ExplSyntaxOn
 \cs_new_eq:NN \siunitx_table_collect_begin:Nn \__siunitx_table_collect_begin:Nn
 \ExplSyntaxOff
-\RequirePackage [inline]{enumitem}
+\RequirePackage [shortlabels,inline]{enumitem}
 \setlist{nosep}
 \RequirePackage {varwidth}
 
@@ -243,7 +256,7 @@
 \KOMAoptions{
     fontsize      = 12pt,
     numbers       = noendperiod,
-    parskip       = half-,
+    parskip       = half*,
     twoside       = semi,
     %draft,
     captions      = tableheading,
@@ -410,7 +423,7 @@ ______</rdf:Description>^^J%
 %\setlength{\oddsidemargin}{0.9in}
 %\setlength{\evensidemargin}{0in}
 
-\ifluatex\RequirePackage{realscripts}\fi
+%\ifluatex\RequirePackage{realscripts}\fi
 % Add accessibility functions with pdf (>v1.5)
 \RequirePackage {accsupp}
 % declare function to hide text from selection in pdf, used for the draft
@@ -696,6 +709,16 @@ ______</rdf:Description>^^J%
 \setkomafont{disposition}{\sffamily\mdseries}
 \addtokomafont{chapterentry}{\bfseries}
 \addtokomafont{paragraph}{\bfseries}
+
+\RedeclareSectionCommand[
+  beforeskip=-1.5ex plus -.5ex minus -.1ex,
+  afterskip=1ex plus .1ex]{section}
+\RedeclareSectionCommands[
+  beforeskip=-1ex plus -.5ex minus -.1ex,
+  afterskip=.5ex plus .1ex]{subsection,subsubsection}
+\RedeclareSectionCommands[
+  beforeskip=-1ex plus -.5ex minus -.1ex,
+  afterskip=-1em]{paragraph,subparagraph}
 
 % vim: ft=tex ts=4 sw=4 et
 % vim600: fdl=0 fdm=marker fdc=3 spl=en_gb spell
