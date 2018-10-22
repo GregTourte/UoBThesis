@@ -89,7 +89,7 @@
             Ligatures = {TeX},
             Scale = {MatchLowercase},
             RawFeature = {+case},
-            Scale = {MatchLowercase} ]
+            ]
     \else\ifuob@uobthesis@minion
         \setmainfont {Minion Pro}[
             Numbers = {Proportional,OldStyle},
@@ -531,6 +531,7 @@ ______</rdf:Description>^^J%
 
 %{{{ Definition of maketile
 \renewcommand{\maketitle}{%
+    \ifuob@uobthesis@notitle \else
     %{{{ Title page
     \begin{titlepage}
         \setlength{\parindent}{\z@}
@@ -647,7 +648,7 @@ ______</rdf:Description>^^J%
 }
 \fi
 %}}}
-
+    \fi
 }
 %}}}
 
@@ -710,15 +711,22 @@ ______</rdf:Description>^^J%
 \addtokomafont{chapterentry}{\bfseries}
 \addtokomafont{paragraph}{\bfseries}
 
+\setcounter{secnumdepth}{\subsubsectionnumdepth}
+
 \RedeclareSectionCommand[
-  beforeskip=-1.5ex plus -.5ex minus -.1ex,
-  afterskip=1ex plus .1ex]{section}
+  beforeskip=-1.5ex plus -.5ex minus -.5ex,
+  afterskip=1ex plus .1ex,
+  ]{section}
+
 \RedeclareSectionCommands[
-  beforeskip=-1ex plus -.5ex minus -.1ex,
-  afterskip=.5ex plus .1ex]{subsection,subsubsection}
+  beforeskip=-1ex plus -.5ex minus -.5ex,
+  afterskip=.5ex plus .1ex,
+  ]{subsection,subsubsection}
+
 \RedeclareSectionCommands[
-  beforeskip=-1ex plus -.5ex minus -.1ex,
-  afterskip=-1em]{paragraph,subparagraph}
+  beforeskip=-1ex plus -.5ex minus -.5ex,
+  afterskip=-1em,
+  ]{paragraph,subparagraph}
 
 % vim: ft=tex ts=4 sw=4 et
 % vim600: fdl=0 fdm=marker fdc=3 spl=en_gb spell

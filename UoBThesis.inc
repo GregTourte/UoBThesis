@@ -28,6 +28,9 @@
 \define@boolkey[uob]{uobthesis}{minionthree}[true]{}
 \setkeys[uob]{uobthesis}{minionthree=false}
 
+\define@boolkey[uob]{uobthesis}{notitle}[true]{}
+\setkeys[uob]{uobthesis}{notitle=false}
+
 \DeclareOptionX*{
     \ClassError{UoBThesis}{Unknown option ‘\CurrentOption’}%
 }
