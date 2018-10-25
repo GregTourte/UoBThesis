@@ -178,6 +178,12 @@
 \RequirePackage {tabu}
 \PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
 \RequirePackage {etoolbox}
+
+\ifPDFTeX\else
+    \AtBeginEnvironment{tabu}{
+        \addfontfeature{ Numbers = {Lining, Monospaced}, RawFeature = {-onum,-pnum,+tnum,+case}}
+    }
+\fi
 \RequirePackage [version=4]{mhchem}
 \ifPDFTeX\else 
     \mhchemoptions{%
