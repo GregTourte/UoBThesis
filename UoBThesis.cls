@@ -70,6 +70,9 @@
 
 \ifluatex
 % Loading LuaTeX spefic packages
+    % required to be loaded before microtype to fix a bug in the version shipped with TeXLive 2018
+    \RequirePackage {luatexbase}
+    %
     \RequirePackage {fontspec,microtype}
     \defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
     \ifuob@uobthesis@minionthree
