@@ -16,6 +16,9 @@
 \define@choicekey*[uob]{uobthesis}{logo}[\val\logonr]{none,full,crest}[full]{\def\uobthesis@logo{\logonr}}
 \setkeys[uob]{uobthesis}{logo=full}
 
+\define@choicekey*[uob]{uobthesis}{spacing}[\val\spacingnr]{single,onehalf,double}[double]{\def\uobthesis@spacing{\spacingnr}}
+\setkeys[uob]{uobthesis}{spacing=double}
+
 \define@boolkey[uob]{uobthesis}{minted}[true]{}
 \setkeys[uob]{uobthesis}{minted=false}
 

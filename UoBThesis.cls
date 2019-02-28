@@ -509,8 +509,23 @@ ______</rdf:Description>^^J%
 
 \let\oldfrontmatter\frontmatter
 \renewcommand\frontmatter{\oldfrontmatter \singlespacing}
-\let\oldmainmatter\mainmatter
-\renewcommand\mainmatter{\oldmainmatter \onehalfspacing}
+%% Main Matter spacing
+\ifcase\uobthesis@spacing
+    % single
+    \let\oldmainmatter\mainmatter
+    \renewcommand\mainmatter{\oldmainmatter \singlespacing}
+\or
+    % onehalf
+    \let\oldmainmatter\mainmatter
+    \renewcommand\mainmatter{\oldmainmatter \onehalfspacing}
+\or
+    % double
+    \let\oldmainmatter\mainmatter
+    \renewcommand\mainmatter{\oldmainmatter \doublespacing}
+\else
+    \let\oldmainmatter\mainmatter
+    \renewcommand\mainmatter{\oldmainmatter \doublespacing}
+\fi
 \let\oldbackmatter\backmatter
 \renewcommand\backmatter{\oldbackmatter \singlespacing}
 
