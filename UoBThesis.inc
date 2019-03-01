@@ -19,6 +19,9 @@
 \define@choicekey*[uob]{uobthesis}{spacing}[\val\spacingnr]{single,onehalf,double}[double]{\def\uobthesis@spacing{\spacingnr}}
 \setkeys[uob]{uobthesis}{spacing=double}
 
+\define@choicekey*[uob]{uobthesis}{secnumpos}[\val\secnumposnr]{margin,text}[text]{\def\uobthesis@secnumpos{\secnumposnr}}
+\setkeys[uob]{uobthesis}{secnumpos=text}
+
 \define@boolkey[uob]{uobthesis}{minted}[true]{}
 \setkeys[uob]{uobthesis}{minted=false}
 

@@ -756,5 +756,17 @@ ______</rdf:Description>^^J%
   afterskip=-1em,
   ]{paragraph,subparagraph}
 
+\ifcase\uobthesis@secnumpos
+    % margin
+    \newcommand*\marginnumber[1]{\makebox[0pt][r]{#1\autodot\hspace{10pt}}}
+    \renewcommand*{\sectionformat}{\marginnumber{\thesection}}
+    \renewcommand*{\subsectionformat}{\marginnumber{\thesubsection}}
+    \renewcommand*{\subsubsectionformat}{\marginnumber{\thesubsubsection}}
+\or
+    % text (do nothing)
+\else
+    % else (do nothing)
+\fi
+
 % vim: ft=tex ts=4 sw=4 et
 % vim600: fdl=0 fdm=marker fdc=3 spl=en_gb spell
