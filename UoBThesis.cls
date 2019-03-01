@@ -71,7 +71,11 @@
 \ifluatex
 % Loading LuaTeX spefic packages
     % required to be loaded before microtype to fix a bug in the version shipped with TeXLive 2018
-    \RequirePackage {luatexbase}
+    % a revised version of microtype with a fix has been release on 2019-02-28.
+    \@ifpackagelater{microtype}{2019/02/27}{%
+    }{%
+        \RequirePackage {luatexbase}
+    }
     %
     \RequirePackage {fontspec,microtype}
     \defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
