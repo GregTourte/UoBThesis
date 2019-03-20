@@ -70,14 +70,21 @@
 
 \ifluatex
 % Loading LuaTeX spefic packages
-    % required to be loaded before microtype to fix a bug in the version shipped with TeXLive 2018
-    % a revised version of microtype with a fix has been release on 2019-02-28.
-    \@ifpackagelater{microtype}{2019/02/27}{%
+    \RequirePackage {fontspec}
+    % required to be loaded before microtype to fix a bug in the version
+    % shipped with TeXLive 2018 a revised version of microtype with a fix has
+    % been release on 2019-02-28.  Since the date ckeck requires the package to
+    % be already loaded, we use fontspec which as updated in TeXLive 2019
+    % mid-march 2019 as the validator
+    \@ifpackagelater{fontspec}{2019/03/14}{%
+        % fontspec is newer than fixed microtype so we assume microtype is updated.
+        \RequirePackage {microtype}
     }{%
+    \message{fixing bug microtype package in TeXLive 2018, by loading the luatexbase package first}
         \RequirePackage {luatexbase}
+        \RequirePackage {microtype}
     }
     %
-    \RequirePackage {fontspec,microtype}
     \defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
     \ifuob@uobthesis@minionthree
         \setmainfont {Minion 3}[
