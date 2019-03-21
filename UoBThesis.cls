@@ -419,7 +419,7 @@ ______</rdf:Description>^^J%
     eprint       = false,
     defernumbers = true,
 }
-\DeclareNameAlias{default}{last-first}
+\DeclareNameAlias{default}{family-given}
 \setcounter{biburlnumpenalty}{100}
 \addto\bibfont{\smaller} % makes bibliography font smalled as per typography guidelines
 \DeclareSourcemap{
