@@ -210,7 +210,10 @@
 \cs_new_eq:NN \siunitx_table_collect_begin:Nn \__siunitx_table_collect_begin:Nn
 \ExplSyntaxOff
 \RequirePackage [shortlabels,inline]{enumitem}
-\setlist{nosep}
+\setlist{noitemsep}
+%\setlist[1]{labelindent=\parindent}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
 \RequirePackage {varwidth}
 
 \RequirePackage {float}
@@ -289,12 +292,16 @@
     titlepage     = firstiscover,
     footinclude   = false,
     headinclude   = false,
+    % force single spacing in header and footer
+    % from https://tex.stackexchange.com/a/367660/12332
+    onpsinit      = {\linespread{1}\selectfont},
 }
 
-\recalctypearea
 \ofoot[]{}
 \cfoot[\pagemark]{\pagemark}
 \pagestyle{scrheadings}
+\recalctypearea
+\def\@dotsep{3}
 \setuptoc{toc}{numbered}
 %\setcounter{secnumdepth}{3}
 
@@ -537,6 +544,8 @@ ______</rdf:Description>^^J%
     \let\oldmainmatter\mainmatter
     \renewcommand\mainmatter{\oldmainmatter \doublespacing}
 \fi
+\let\oldappendix\appendix
+\renewcommand\appendix{\oldappendix \singlespacing}
 \let\oldbackmatter\backmatter
 \renewcommand\backmatter{\oldbackmatter \singlespacing}
 
