@@ -292,15 +292,13 @@
     titlepage     = firstiscover,
     footinclude   = false,
     headinclude   = false,
-    % force single spacing in header and footer
-    % from https://tex.stackexchange.com/a/367660/12332
-    onpsinit      = {\linespread{1}\selectfont},
+    singlespacing = true,       % make sure page style are always in singlespace
 }
+\recalctypearea
 
 \ofoot[]{}
 \cfoot[\pagemark]{\pagemark}
 \pagestyle{scrheadings}
-\recalctypearea
 \def\@dotsep{3}
 \setuptoc{toc}{numbered}
 %\setcounter{secnumdepth}{3}
@@ -528,20 +526,17 @@ ______</rdf:Description>^^J%
 \let\oldfrontmatter\frontmatter
 \renewcommand\frontmatter{\oldfrontmatter \singlespacing}
 %% Main Matter spacing
+\let\oldmainmatter\mainmatter
 \ifcase\uobthesis@spacing
     % single
-    \let\oldmainmatter\mainmatter
     \renewcommand\mainmatter{\oldmainmatter \singlespacing}
 \or
     % onehalf
-    \let\oldmainmatter\mainmatter
     \renewcommand\mainmatter{\oldmainmatter \onehalfspacing}
 \or
     % double
-    \let\oldmainmatter\mainmatter
     \renewcommand\mainmatter{\oldmainmatter \doublespacing}
 \else
-    \let\oldmainmatter\mainmatter
     \renewcommand\mainmatter{\oldmainmatter \doublespacing}
 \fi
 \let\oldappendix\appendix
@@ -672,13 +667,19 @@ ______</rdf:Description>^^J%
 % Taken from the PGR code annex 4: http://www.bristol.ac.uk/academic-quality/pg/pgrcode/annex4/
 \chapter{Author's Declaration}
 
+\begingroup
+\KOMAoption{parskip}{half*}
 \uob@author@declaration@text
 
 \vskip 10mm
 \@author
 \vskip 15mm
 
-\textsc{signed}:~\makebox[60mm]{\dotfill}\hfill\textsc{date}:~\makebox[60mm]{\dotfill}
+\makebox[.49\textwidth]{\textsc{signed}:~\dotfill}%
+\hspace{.02\textwidth}%
+\makebox[.49\textwidth]{\textsc{date}:~\dotfill}
+\endgroup
+
 \cleardoublepage
 % End of author's declaration
     %}}}
