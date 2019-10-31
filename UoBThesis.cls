@@ -63,10 +63,10 @@
 \RequirePackage{mathtools}
 %\PassOptionsToPackage{pdfa}{hyperref}
 \ifuob@uobthesis@print\else
-    \AfterPackage!{hyperref}{\RequirePackage{bookmark}}
-    \AfterPackage!{hyperref}{\RequirePackage{hyperxmp}}
+    \AfterAtEndOfPackage{hyperref}{\RequirePackage{bookmark}}
+    \AfterAtEndOfPackage{hyperref}{\RequirePackage{hyperxmp}}
 \fi
-\AfterPackage!{hyperref}{\RequirePackage[nameinlink]{cleveref}}
+\AfterAtEndOfPackage{hyperref}{\RequirePackage[nameinlink]{cleveref}}
 
 \ifluatex
 % Loading LuaTeX spefic packages
