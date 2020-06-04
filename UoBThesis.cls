@@ -254,7 +254,7 @@
 \RequirePackage{relsize}
 
 % Load glossaries package and our custom glossaries style.
-\RequirePackage[xindy,acronyms,shortcuts,hyperfirst=false,nomain,toc,section=section]{glossaries}
+\RequirePackage[acronyms,shortcuts,hyperfirst=false,nomain,toc,section=section]{glossaries}
 \RequirePackage{glossaries-UoB}
 
 \newcommand\TODO{{\color{red}\bfseries TODO}}
@@ -310,21 +310,21 @@
 \renewcommand*\dictumauthorformat[1]{--- #1}
 \renewcommand*\dictumrule{}
 
-\ifuob@uobthesis@print\else
-\renewcommand*{\hyxmp@pdfa@id@schema}{%
-  \ifHy@pdfa
-    \hyxmp@add@to@xml{%
-______<rdf:Description rdf:about=""^^J%
-____________xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/">^^J%
-    }%
-    \hyxmp@add@simple{pdfaid:part}{2}%
-    \hyxmp@add@simple{pdfaid:conformance}{B}%
-    \hyxmp@add@to@xml{%
-______</rdf:Description>^^J%
-    }%
-  \fi
-}
-\fi
+%\ifuob@uobthesis@print\else
+%\renewcommand*{\hyxmp@pdfa@id@schema}{%
+%  \ifHy@pdfa
+%    \hyxmp@add@to@xml{%
+%______<rdf:Description rdf:about=""^^J%
+%____________xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/">^^J%
+%    }%
+%    \hyxmp@add@simple{pdfaid:part}{2}%
+%    \hyxmp@add@simple{pdfaid:conformance}{B}%
+%    \hyxmp@add@to@xml{%
+%______</rdf:Description>^^J%
+%    }%
+%  \fi
+%}
+%\fi
 
 {
     \DTMsetstyle{pdf}
@@ -385,7 +385,7 @@ ______</rdf:Description>^^J%
 \ifuob@uobthesis@cclicense
 \RequirePackage[
     type          = {CC},
-    modifier      = {by},
+    modifier      = {by-nc-nd},
     imagemodifier = {-eu},
     imagewidth    = {8em},
     version       = {4.0},
