@@ -102,7 +102,7 @@
             Numbers = {Proportional,Lining},
             Ligatures = {TeX},
             Scale = {MatchLowercase},
-            RawFeature = {+case},
+%            RawFeature = {+case},
             ]
     \else\ifuob@uobthesis@minion
         \setmainfont {Minion Pro}[
@@ -113,7 +113,7 @@
             Numbers = {Proportional,Lining},
             Ligatures = {TeX},
             Scale = {MatchLowercase},
-            RawFeature = {+case},
+%            RawFeature = {+case},
             ]
     \else
         \setmainfont {Libertinus Serif}[
@@ -386,7 +386,7 @@
 \RequirePackage[
     type          = {CC},
     modifier      = {by-nc-nd},
-    imagemodifier = {-eu},
+    imagemodifier = {-eu-88x31},
     imagewidth    = {8em},
     version       = {4.0},
 ]{doclicense}
@@ -732,7 +732,7 @@
         \node[text width=\textwidth, inner xsep=0, inner ysep=13, anchor=north west] (chaptertitle) at (0,0) {\vphantom{j}#3};
         \draw[thick,overlay] (chaptertitle.north west) -- (chaptertitle.north east);
         \draw[thick,overlay] (chaptertitle.south west) -- (chaptertitle.south east);
-        \ifstr{#2}{}{}{
+        \Ifstr{#2}{}{}{
             \node[chptnum] (chapternumber) at ($(chaptertitle.north east) - (0,.5pt)$) {\resizebox{!}{55pt}{#2}};
             \IfChapterUsesPrefixLine{%
                 \node[rotate=90,overlay,inner ysep=5pt, fill=white, anchor= south] (chaptername) at (chapternumber.west) {\resizebox{56pt}{!}{\chapapp}};
