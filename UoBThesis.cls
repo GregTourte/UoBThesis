@@ -85,7 +85,7 @@
         \RequirePackage {microtype}
     }
     %
-    \defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
+    \defaultfontfeatures{Ligatures = {TeX}}
     \ifuob@uobthesis@minionthree
         \setmainfont {Minion 3}[
             Numbers      = {Proportional,OldStyle},
@@ -101,7 +101,6 @@
         \newfontfamily\liningroman{Minion3}[
             Numbers = {Proportional,Lining},
             Ligatures = {TeX},
-            Scale = {MatchLowercase},
 %            RawFeature = {+case},
             ]
     \else\ifuob@uobthesis@minion
@@ -112,7 +111,6 @@
         \newfontfamily\liningroman{Minion Pro}[
             Numbers = {Proportional,Lining},
             Ligatures = {TeX},
-            Scale = {MatchLowercase},
 %            RawFeature = {+case},
             ]
     \else
@@ -122,10 +120,10 @@
         \newfontfamily\liningroman{Libertinus Serif}[
             Numbers = {Proportional,Lining},
             Ligatures = {TeX},
-            Scale = {MatchLowercase},
             RawFeature = {+case},
             ]
     \fi\fi
+    \defaultfontfeatures{Scale = {MatchLowercase}}
     \setsansfont {LibertinusSans}[
         Numbers = {Proportional,OldStyle} ]
     \setmonofont {InconsolataN}[
@@ -144,10 +142,11 @@
 \else\ifxetex
 % Loading XeTeX specific packages
     \RequirePackage {fontspec,microtype}
-    \defaultfontfeatures{Ligatures = {TeX}, Scale = {MatchLowercase}}
+    \defaultfontfeatures{Ligatures = {TeX}}
     \setmainfont {Libertinus Serif}[
         Numbers = {Proportional,OldStyle},
         BoldFont= * bold ]
+    \defaultfontfeatures{Scale = {MatchLowercase}}
     \setsansfont {Libertinus Sans}[
         Numbers = {Proportional,OldStyle} ]
     \setmonofont {InconsolataN}[
@@ -192,20 +191,26 @@
 \RequirePackage {tabu}
 \PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
 \RequirePackage {etoolbox}
+\RequirePackage{ragged2e}
+\RequirePackage{relsize}
 
 \ifPDFTeX\else
+    \typeout{ UoBThesis: DEBUG: I am not running pdftex... }
     \AtBeginEnvironment{tabu}{
         \addfontfeature{ Numbers = {Lining, Monospaced}, RawFeature = {-onum,-pnum,+tnum,+case}}
+        \smaller
     }
 \fi
 \RequirePackage [version=4]{mhchem}
 \ifPDFTeX\else 
+    \typeout{ UoBThesis: DEBUG: I am not running pdftex... }
     \mhchemoptions{%
         textfontcommand = \addfontfeature{Numbers = {Lining, Monospaced}, RawFeature = {-onum,-pnum,+tnum,+case}},%
     }
 \fi
 
 \RequirePackage {siunitx}
+% fix tabu use of siunitx from http://tex.stackexchange.com/questions/70279/newcolumntype-siunitx-tabu-and-illegal-pream-tokens
 \ExplSyntaxOn
 \cs_new_eq:NN \siunitx_table_collect_begin:Nn \__siunitx_table_collect_begin:Nn
 \ExplSyntaxOff
@@ -250,8 +255,6 @@
     width         = .75\linewidth,
 }
 \captionsetup[listing]{skip=10pt}
-\RequirePackage{ragged2e}
-\RequirePackage{relsize}
 
 % Load glossaries package and our custom glossaries style.
 \RequirePackage[acronyms,shortcuts,hyperfirst=false,nomain,toc,section=section]{glossaries}
