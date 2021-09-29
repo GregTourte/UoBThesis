@@ -202,7 +202,7 @@
 \fi
 
 % Requiring version v2 of siunitx for the moment
-\RequirePackage {siunitx}[=v2]
+\RequirePackage {siunitx}%[=v2]
 \RequirePackage [shortlabels,inline]{enumitem}
 \setlist{noitemsep}
 %\setlist[1]{labelindent=\parindent}
