@@ -27,7 +27,7 @@
 \fi
 
 \ifluatex
-    \pdfvariable minorversion 7
+    \pdfvariable minorversion 6
     \pdfvariable pageattr {/Group << /S /Transparency /I true /CS /DeviceCMYK>>}
  %   \pdfextension catalog{%
  %       /OutputIntents [ <<
@@ -40,7 +40,7 @@
  %   }
 
 \else\ifpdf
-    \pdfminorversion 7
+    \pdfminorversion 6
     \pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceCMYK>>}
 \fi\fi
 
@@ -188,19 +188,11 @@
 \RequirePackage {booktabs}
 %\RequirePackage [begintext={``} , endtext={''},vskip={\topsep}]{quoting}
 \RequirePackage {quoting}
-\RequirePackage {tabu}
 \PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
 \RequirePackage {etoolbox}
 \RequirePackage{ragged2e}
 \RequirePackage{relsize}
 
-\ifPDFTeX\else
-    \typeout{ UoBThesis: DEBUG: I am not running pdftex... }
-    \AtBeginEnvironment{tabu}{
-        \addfontfeature{ Numbers = {Lining, Monospaced}, RawFeature = {-onum,-pnum,+tnum,+case}}
-        \smaller
-    }
-\fi
 \RequirePackage [version=4]{mhchem}
 \ifPDFTeX\else 
     \typeout{ UoBThesis: DEBUG: I am not running pdftex... }
@@ -209,11 +201,8 @@
     }
 \fi
 
-\RequirePackage {siunitx}
-% fix tabu use of siunitx from http://tex.stackexchange.com/questions/70279/newcolumntype-siunitx-tabu-and-illegal-pream-tokens
-\ExplSyntaxOn
-\cs_new_eq:NN \siunitx_table_collect_begin:Nn \__siunitx_table_collect_begin:Nn
-\ExplSyntaxOff
+% Requiring version v2 of siunitx for the moment
+\RequirePackage {siunitx}[=v2]
 \RequirePackage [shortlabels,inline]{enumitem}
 \setlist{noitemsep}
 %\setlist[1]{labelindent=\parindent}
@@ -221,7 +210,9 @@
 \setlist[enumerate]{leftmargin=*}
 \RequirePackage {varwidth}
 
-\RequirePackage {float}
+%\RequirePackage {float}
+\RequirePackage[font = small, floatrowsep = qquad, captionskip = 5pt]{floatrow}
+\floatsetup[table]{style=plaintop}
 
 \RequirePackage[mode=tex]{standalone}
 \RequirePackage{xstring}
