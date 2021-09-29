@@ -5,8 +5,9 @@
 
 %\RequirePackage[shortcuts=acro]{glossaries-extra}
 
-\RequirePackage{tabu}
-\RequirePackage{longtable}
+%\RequirePackage{tabu}
+%\RequirePackage{longtable}
+\RequirePackage{xltabular}
 
 \glsdisablehyper
 
@@ -21,8 +22,8 @@
     \setglossarystyle{long3col}% base this style on the list style
     \renewenvironment{theglossary}{% Change the table type --> 3 columns
     %    \tabulinesep=1mm
-        \begin{longtabu} to \textwidth [l]{@{}l @{\hskip 10mm} X[l]  X[-1,c] @{}}}%
-        {\end{longtabu}}%
+    \begin{xltabular}[l]{\textwidth}{@{}l @{\hskip 10mm} X[l]  c @{}}}%
+        {\end{xltabular}}%
     %
     \renewcommand*{\glossaryheader}{%  Change the table header
         \rowfont{\bfseries}
@@ -45,8 +46,8 @@
     \setglossarystyle{long3col}% base this style on the list style
     \renewenvironment{theglossary}{% Change the table type --> 3 columns
     %    \tabulinesep=1mm
-    \begin{longtabu} to \textwidth {@{}l X[l] >{\raggedleft}p{1.1\glspagelistwidth} @{}}}%
-        {\end{longtabu}}%
+    \begin{xltabular}{\textwidth}{@{}l X[l] >{\raggedleft}p{1.1\glspagelistwidth} @{}}}%
+        {\end{xltabular}}%
     %
     \renewcommand*{\glossaryheader}{}%  Change the table header
     \renewcommand*{\glossentry}[2]{%  Change the displayed items
