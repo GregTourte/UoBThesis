@@ -389,19 +389,16 @@
 \sisetup{
 %   group-separator = {,},
     group-digits = integer,
-    detect-all   = true,
     range-units  = single,
 }
 \ifluatex
     \sisetup{
-        number-text-rm = \liningroman,
-        unit-text-rm   = \liningroman,
-        text-rm        = \liningroman,
+        text-font-command = \addfontfeature{ Numbers = {Lining, Proportional}, RawFeature = {+case}}
     }
 \fi
 
 
-\RequirePackage[backend=biber,natbib=true]{biblatex}
+\RequirePackage[backend = biber, natbib = true]{biblatex}
 \ExecuteBibliographyOptions{
     sorting      = none,
     backref      = true,
@@ -422,13 +419,14 @@
 \setcounter{biburlnumpenalty}{100}
 \addto\bibfont{\smaller} % makes bibliography font smalled as per typography guidelines
 \DeclareSourcemap{
-  \maps[datatype=bibtex]{
-     \map{
-        \step[fieldsource=doi,final]
-        \step[fieldset=url,null]
+    \maps[datatype = bibtex]{
+        \map{
+            \step[fieldsource = doi, final]
+            \step[fieldset = url, null]
         }
-      }
+    }
 }
+
 % The following definition is copied from authortitle.bbx/authoryear.bbx
 %\defbibenvironment{nolabelbib}
 %  {\list
@@ -448,7 +446,7 @@
 % declare function to hide text from selection in pdf, used for the draft
 % watermark and linenos in listing
 \DeclareRobustCommand\squelch[1]{%
-  \BeginAccSupp{method=plain,ActualText={}}#1\EndAccSupp{}%
+    \BeginAccSupp{method = plain, ActualText = {}}#1\EndAccSupp{}%
 }
 
 
@@ -456,8 +454,8 @@
 %\newcommand*\ac[1]{\textsmaller{#1}}
 %\AtBeginEnvironment{tabu}{%
 %  \liningroman}
- %\addfontfeature{Numbers={Monospaced,Lining}}
- %}
+%\addfontfeature{Numbers={Monospaced,Lining}}
+%}
 
 \ifx\uob@uobthesis@minted {
     \RequirePackage {minted}
