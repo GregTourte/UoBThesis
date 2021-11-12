@@ -60,6 +60,7 @@
     
 \RequirePackage{scrhack}
 \RequirePackage{scrlayer-scrpage}
+\RequirePackage {xcolor}
 \RequirePackage{mathtools}
 %\PassOptionsToPackage{pdfa}{hyperref}
 \ifuob@uobthesis@print\else
@@ -70,7 +71,8 @@
 
 \ifluatex
 % Loading LuaTeX spefic packages
-    \RequirePackage {fontspec}
+    %\RequirePackage {fontspec}
+    \RequirePackage[math-style=TeX]{unicode-math}
     % required to be loaded before microtype to fix a bug in the version
     % shipped with TeXLive 2018 a revised version of microtype with a fix has
     % been release on 2019-02-28.  Since the date ckeck requires the package to
@@ -95,33 +97,26 @@
                 { Size   = 13.9-25.9, Font = Minion 3 Subhead },
                 { Size   = 25.9-, Font = Minion 3 Display },
             },
-            BoldFont     = * Semibold,
+            BoldFont     = * Bold,
             ItalicFont   = * Italic,
         ]
-        \newfontfamily\liningroman{Minion3}[
-            Numbers = {Proportional,Lining},
-            Ligatures = {TeX},
-%            RawFeature = {+case},
-            ]
+        \setmathfont{MinionMath}%[Colour = blue]
+        \setmathfont{Libertinus Math}[range = {"0028-"0029}]%, Colour = red]
+        \def\MT@warn@unknown{}
     \else\ifuob@uobthesis@minion
         \setmainfont {Minion Pro}[
             Numbers = {Proportional,OldStyle},
             BoldFont= * bold,
         ]
-        \newfontfamily\liningroman{Minion Pro}[
-            Numbers = {Proportional,Lining},
-            Ligatures = {TeX},
-%            RawFeature = {+case},
-            ]
+        \RequirePackage[math-style=TeX]{unicode-math}
+        \setmathfont{MinionMath}%[Colour = blue]
+        \setmathfont{Libertinus Math}[range = {"0028-"0029}]%, Colour = red]
+        \def\MT@warn@unknown{}
     \else
         \setmainfont {Libertinus Serif}[
             Numbers = {Proportional,OldStyle},
             BoldFont= * bold ]
-        \newfontfamily\liningroman{Libertinus Serif}[
-            Numbers = {Proportional,Lining},
-            Ligatures = {TeX},
-            RawFeature = {+case},
-            ]
+        \setmathfont{Libertinus Math}
     \fi\fi
     \defaultfontfeatures{Scale = {MatchLowercase}}
     \setsansfont {LibertinusSans}[
@@ -131,8 +126,6 @@
         ItalicFeatures = FakeSlant,
         RawFeature = -tlig;-trep,
         StylisticSet={1,3} ]
-    \RequirePackage[math-style=TeX]{unicode-math}
-    \setmathfont{Libertinus Math}
 
     \RequirePackage {polyglossia}
     \setdefaultlanguage[variant=british]{english}
@@ -181,7 +174,6 @@
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 \RequirePackage [nodisplayskipstretch]{setspace} %onehalfspacing or doublespacing are the options here
 %\setstretch{1.20}
-\RequirePackage {xcolor}
 %\RequirePackage [final]{changes}
 \RequirePackage {multicol}
 \RequirePackage {multirow}
@@ -391,11 +383,11 @@
     group-digits = integer,
     range-units  = single,
 }
-\ifluatex
-    \sisetup{
-        text-font-command = \addfontfeature{ Numbers = {Lining, Proportional}, RawFeature = {+case}}
-    }
-\fi
+%\ifluatex
+%    \sisetup{
+%        text-font-command = \addfontfeature{ Numbers = {Lining, Proportional}, RawFeature = {+case}}
+%    }
+%\fi
 
 
 \RequirePackage[backend = biber, natbib = true]{biblatex}
