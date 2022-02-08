@@ -405,7 +405,7 @@
     ibidtracker  = true,
     block        = space,
     eprint       = false,
-    defernumbers = true,
+%    defernumbers = false,
 }
 \DeclareNameAlias{default}{family-given}
 \setcounter{biburlnumpenalty}{100}
