@@ -203,8 +203,25 @@
 \RequirePackage {varwidth}
 
 %\RequirePackage {float}
-\RequirePackage[font = small, floatrowsep = qquad, captionskip = 5pt]{floatrow}
+\RequirePackage[floatrowsep = qquad, captionskip = 7.5pt]{floatrow}
+\RequirePackage {caption,subcaption}
+\floatsetup{font = small}
 \floatsetup[table]{style=plaintop}
+\captionsetup{
+    format        = hang,
+%   justification = centerlast,
+    font          = {small,sf},
+    labelfont     = {small,sf,it},
+    width         = .75\linewidth,
+}
+\captionsetup[subfigure]{
+    font          = {footnotesize,sf},
+    labelfont     = {footnotesize,sf},
+}
+\captionsetup[listing]{skip=10pt}
+%\captionsetup[subfigure]{subrefformat=simple,labelformat=simple,listofformat=subsimple}
+%\renewcommand\thesubfigure{(\alph{subfigure})}
+
 
 \RequirePackage[mode=tex]{standalone}
 \RequirePackage{xstring}
@@ -226,18 +243,7 @@
 \RequirePackage [british,calc]{datetime2}
 \DTMlangsetup[en-GB]{ord=raise}
 \RequirePackage [autostyle,english=british]{csquotes}
-\RequirePackage {caption,subcaption}
 \RequirePackage {verse}
-
-%\captionsetup[subfigure]{subrefformat=simple,labelformat=simple,listofformat=subsimple}
-%\renewcommand\thesubfigure{(\alph{subfigure})}
-\captionsetup{
-    format        = hang,
-%   justification = centerlast,
-    font          = small,
-    width         = .75\linewidth,
-}
-\captionsetup[listing]{skip=10pt}
 
 % Load glossaries package and our custom glossaries style.
 \RequirePackage[acronyms,shortcuts,hyperfirst=false,nomain,toc,section=section]{glossaries}
@@ -322,7 +328,6 @@
 }
 \hypersetup {
     hidelinks,
-    breaklinks,
     linktocpage        = true,
     unicode            = true,
 %   hyperfootnotes     = true,
@@ -703,7 +708,7 @@
         every node/.style = {
             inner sep = 0,
             outer sep = 0,
-            },
+        },
         chptnum/.style = {
  %           draw,
  %           color = white,
@@ -711,9 +716,16 @@
             fill = white,
             overlay,
             anchor = south east,
-            },
-        ]
-        \node[text width=\textwidth, inner xsep=0, inner ysep=13, anchor=north west] (chaptertitle) at (0,0) {\vphantom{j}#3};
+        },
+        chpttitle/.style = {
+            text width = \textwidth,
+            inner xsep = 0,
+            inner ysep = 13,
+            anchor = north west,
+            execute at begin node = \vphantom{bg}
+        }
+    ]
+        \node[chpttitle] (chaptertitle) at (0,0) {#3};
         \draw[thick,overlay] (chaptertitle.north west) -- (chaptertitle.north east);
         \draw[thick,overlay] (chaptertitle.south west) -- (chaptertitle.south east);
         \Ifstr{#2}{}{}{
