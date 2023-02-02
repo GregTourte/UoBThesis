@@ -12,19 +12,7 @@
 \ProvidesClass{UoBThesis}[2018/08/01 University of Bristol PhD Thesis Class]
 
 
-\RequirePackage{iftex,ifpdf,ifxetex,ifluatex}
-
-% from https://tex.stackexchange.com/a/47579/12332
-\newif\ifxetexorluatex
-\ifxetex
-  \xetexorluatextrue
-\else
-  \ifluatex
-    \xetexorluatextrue
-  \else
-    \xetexorluatexfalse
-  \fi
-\fi
+\RequirePackage{iftex}
 
 \ifluatex
     \pdfvariable minorversion 6
@@ -38,7 +26,6 @@
  %       /Info(eciRGB v2)
  %       >> ]
  %   }
-
 \else\ifpdf
     \pdfminorversion 6
     \pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceCMYK>>}
@@ -99,16 +86,16 @@
             },
             BoldFont     = * Bold,
             ItalicFont   = * Italic,
+            RawFeature   = {liga, calt, clig}
         ]
         \setmathfont{MinionMath}%[Colour = blue]
-        \setmathfont{Libertinus Math}[range = {"0028-"0029}]%, Colour = red]
+        \setmathfont{Libertinus Math}[range = {{"0028-"0029},{"02C6-"02C7}}]%, Colour = red]
         \def\MT@warn@unknown{}
     \else\ifuob@uobthesis@minion
         \setmainfont {Minion Pro}[
             Numbers = {Proportional,OldStyle},
             BoldFont= * bold,
         ]
-        \RequirePackage[math-style=TeX]{unicode-math}
         \setmathfont{MinionMath}%[Colour = blue]
         \setmathfont{Libertinus Math}[range = {"0028-"0029}]%, Colour = red]
         \def\MT@warn@unknown{}
@@ -134,7 +121,8 @@
 %
 \else\ifxetex
 % Loading XeTeX specific packages
-    \RequirePackage {fontspec,microtype}
+    \RequirePackage[math-style=TeX]{unicode-math}
+    \RequirePackage {microtype}
     \defaultfontfeatures{Ligatures = {TeX}}
     \setmainfont {Libertinus Serif}[
         Numbers = {Proportional,OldStyle},
@@ -153,39 +141,38 @@
         Scale = {MatchLowercase},
         RawFeature = {+case},
         ]
-    \RequirePackage[math-style=TeX]{unicode-math}
     \setmathfont{Libertinus Math}
 
     \RequirePackage {polyglossia}
-    \setdefaultlanguage[variant=british]{english}
+    \setdefaultlanguage[variant = british]{english}
 \else
-   \RequirePackage [T1]{fontenc}
-   \RequirePackage [utf8]{inputenc}
-   \RequirePackage {libertine}
-   \RequirePackage {libertinust1math}
-   \RequirePackage [narrow,varqu,varl]{inconsolata}
-   \RequirePackage [british]{babel}
+    \RequirePackage[T1]{fontenc}
+    \RequirePackage{microtype}
+    \RequirePackage[mono = false]{libertinus}
+    \RequirePackage{libertinust1math}
+    \RequirePackage[narrow, varqu, varl]{inconsolata}
+    \RequirePackage[british]{babel}
 \fi\fi
 
-\RequirePackage {needspace}
+\RequirePackage{needspace}
 
-\RequirePackage {graphicx}
+\RequirePackage{graphicx}
 \graphicspath{{Images}}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 \RequirePackage [nodisplayskipstretch]{setspace} %onehalfspacing or doublespacing are the options here
 %\setstretch{1.20}
 %\RequirePackage [final]{changes}
-\RequirePackage {multicol}
-\RequirePackage {multirow}
-\RequirePackage {booktabs}
+\RequirePackage{multicol}
+\RequirePackage{multirow}
+\RequirePackage{booktabs}
 %\RequirePackage [begintext={``} , endtext={''},vskip={\topsep}]{quoting}
-\RequirePackage {quoting}
+\RequirePackage{quoting}
 \PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
-\RequirePackage {etoolbox}
+\RequirePackage{etoolbox}
 \RequirePackage{ragged2e}
 \RequirePackage{relsize}
 
-\RequirePackage [version=4]{mhchem}
+\RequirePackage[version=4]{mhchem}
 \ifPDFTeX\else 
     \typeout{ UoBThesis: DEBUG: I am not running pdftex... }
     \mhchemoptions{%
@@ -193,37 +180,39 @@
     }
 \fi
 
-% Requiring version v2 of siunitx for the moment
-\RequirePackage {siunitx}%[=v2]
-\RequirePackage [shortlabels,inline]{enumitem}
+\RequirePackage{siunitx}
+\RequirePackage[shortlabels, inline]{enumitem}
 \setlist{noitemsep}
 %\setlist[1]{labelindent=\parindent}
-\setlist[itemize]{leftmargin=*}
-\setlist[enumerate]{leftmargin=*}
+\setlist[itemize]{leftmargin = *}
+\setlist[enumerate]{leftmargin = *}
 \RequirePackage {varwidth}
 
 %\RequirePackage {float}
-\RequirePackage[floatrowsep = qquad, captionskip = 7.5pt]{floatrow}
+\RequirePackage[heightadjust = all, floatrowsep = qquad, captionskip = 7.5pt]{floatrow}
 \RequirePackage {caption,subcaption}
 \floatsetup{font = small}
-\floatsetup[table]{style=plaintop}
+\floatsetup[table]{style = plaintop}
+\floatsetup[subfigure]{captionskip = 7.5pt, rowpostcode = captionskip}
+%\floatsetup[figure]{captionskip = 2em, rowpostcode = captionskip}
+\floatsetup[figure]{style = plain}
 \captionsetup{
     format        = hang,
 %   justification = centerlast,
-    font          = {small,sf},
-    labelfont     = {small,sf,it},
+    font          = {small, sf},
+    labelfont     = {small, sf, it},
     width         = .75\linewidth,
 }
 \captionsetup[subfigure]{
-    font          = {footnotesize,sf},
-    labelfont     = {footnotesize,sf},
+    font          = {footnotesize, sf},
+    labelfont     = {footnotesize, sf},
 }
-\captionsetup[listing]{skip=10pt}
+\captionsetup[listing]{skip = 10pt}
 %\captionsetup[subfigure]{subrefformat=simple,labelformat=simple,listofformat=subsimple}
 %\renewcommand\thesubfigure{(\alph{subfigure})}
 
 
-\RequirePackage[mode=tex]{standalone}
+\RequirePackage[mode = tex]{standalone}
 \RequirePackage{xstring}
 
 \newcommand{\includestandalonewithpath}[2][]{%
@@ -238,31 +227,30 @@
 \floatplacement{table}{t!}
 \floatplacement{listing}{t!}
 
-\RequirePackage {xfrac}
+\RequirePackage{xfrac}
 
-\RequirePackage [british,calc]{datetime2}
-\DTMlangsetup[en-GB]{ord=raise}
-\RequirePackage [autostyle,english=british]{csquotes}
-\RequirePackage {verse}
+\RequirePackage[british, calc]{datetime2}
+\DTMlangsetup[en-GB]{ord = raise}
+\RequirePackage[autostyle, english = british]{csquotes}
+\RequirePackage{verse}
 
 % Load glossaries package and our custom glossaries style.
-\RequirePackage[acronyms,shortcuts,hyperfirst=false,nomain,toc,section=section]{glossaries}
+\RequirePackage[acronyms, shortcuts, hyperfirst = false, nomain, toc, section = section]{glossaries}
 \RequirePackage{glossaries-UoB}
 
-\newcommand\TODO{{\color{red}\bfseries TODO}}
 \RequirePackage{flafter} % places floats after they are first mentioned if possible
 \ifuob@uobthesis@print
-    \RequirePackage [bookmarks=false]{hyperref}
+    \RequirePackage[bookmarks = false]{hyperref}
 \else
-    \RequirePackage {hyperref}
+    \RequirePackage{hyperref}
 \fi
-%\RequirePackage {algorithm}
-%\RequirePackage {algorithmicx}
-%\RequirePackage {algpseudocode} 
+%\RequirePackage{algorithm}
+%\RequirePackage{algorithmicx}
+%\RequirePackage{algpseudocode} 
 
 \RequirePackage{pgfplotstable}
-\pgfplotsset{compat=newest}
-\usetikzlibrary{external,arrows,calc,positioning}
+\pgfplotsset{compat = newest}
+\usetikzlibrary{external, arrows, calc, positioning}
 \ifluatex
 %\tikzset{external/system call={lualatex \tikzexternalcheckshellescape -shell-escape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
 \fi
@@ -345,9 +333,6 @@
     pdfencoding        = auto,
     pdfduplex          = DuplexFlipLongEdge,
     pdfprintscaling    = None,
-%   draft,
-%   pdflicenseurl      = {http://creativecommons.org/licenses/by-nc-nd/4.0/},
-%   pdfcopyright       = {Copyright (C) 2015, Emma L. Tonkin},
 %    pdfinfo            = {
 %        CreationDate    = {\uob@pdfdate},
 %    }
@@ -399,7 +384,7 @@
 \ExecuteBibliographyOptions{
     sorting      = none,
     backref      = true,
-    alldates     = comp,
+%    alldates     = comp,
     giveninits   = true,
     uniquename   = init,
 %   dashed       = false,
@@ -411,6 +396,8 @@
     block        = space,
     eprint       = false,
 %    defernumbers = false,
+    date         = year,
+    urldate      = iso,
 }
 \DeclareNameAlias{default}{family-given}
 \setcounter{biburlnumpenalty}{100}
@@ -455,7 +442,7 @@
 %}
 
 \ifx\uob@uobthesis@minted {
-    \RequirePackage {minted}
+    \RequirePackage{minted}
     \BeforeBeginEnvironment{minted}{\begin{singlespace}}
     \AfterEndEnvironment{minted}{\end{singlespace}}
     \renewcommand{\theFancyVerbLine}{
@@ -482,13 +469,13 @@
 }
 \fi
 
-\g@addto@macro{\UrlBreaks}{\UrlOrds}
-\g@addto@macro\UrlSpecials{%
-  \do\`{\mbox{\UrlFont\char`\`}}%
-  \do\'{\mbox{\UrlFont\char`\'}}%
-  \do\"{\mbox{\UrlFont\char`\"}}%
-  \do\l{\mbox{\UrlFont\char`\l}}%
-  \do\0{\mbox{\UrlFont\char`\0}}%
+\gappto\UrlBreaks{\UrlOrds}
+\gappto\UrlSpecials{%
+    \do\`{\mbox{\UrlFont\char`\`}}%
+    \do\'{\mbox{\UrlFont\char`\'}}%
+    \do\"{\mbox{\UrlFont\char`\"}}%
+    \do\l{\mbox{\UrlFont\char`\l}}%
+    \do\0{\mbox{\UrlFont\char`\0}}%
 }
 
 %\patchcmd{\@afterheading}%
@@ -512,26 +499,22 @@
     \ifx\footnote\nextToken\textsuperscript{,}\fi}
 %
 
-\let\oldfrontmatter\frontmatter
-\renewcommand\frontmatter{\oldfrontmatter \singlespacing}
+\gappto\frontmatter{\singlespacing}
 %% Main Matter spacing
-\let\oldmainmatter\mainmatter
 \ifcase\uobthesis@spacing
     % single
-    \renewcommand\mainmatter{\oldmainmatter \singlespacing}
+    \gappto\mainmatter{\singlespacing}
 \or
     % onehalf
-    \renewcommand\mainmatter{\oldmainmatter \onehalfspacing}
+    \gappto\mainmatter{\onehalfspacing}
 \or
     % double
-    \renewcommand\mainmatter{\oldmainmatter \doublespacing}
+    \gappto\mainmatter{\doublespacing}
 \else
-    \renewcommand\mainmatter{\oldmainmatter \doublespacing}
+    \gappto\mainmatter{\doublespacing}
 \fi
-\let\oldappendix\appendix
-\renewcommand\appendix{\oldappendix \singlespacing}
-\let\oldbackmatter\backmatter
-\renewcommand\backmatter{\oldbackmatter \singlespacing}
+\gappto\appendix{\singlespacing}
+\gappto\backmatter{\singlespacing}
 
 \setlength{\uobtitlecoverwidth}{\textwidth}
 
@@ -624,7 +607,14 @@
         \enlargethispage{2cm}
         \thispagestyle{empty}
         \vglue \fill
+        \begingroup
+        \KOMAoption{parskip}{half*}
+        \ifx\@colophon\@empty \else
+            {\usekomafont{colophon}\@colophon
+            \bigskip}
+        \fi
         \doclicenseThis
+        \endgroup
     \fi
     %}}}
 
@@ -755,19 +745,19 @@
 \setcounter{secnumdepth}{\subsubsectionnumdepth}
 
 \RedeclareSectionCommand[
-  beforeskip=-1.5ex plus -.5ex minus -.5ex,
-  afterskip=1ex plus .1ex,
-  ]{section}
+    beforeskip=-1.5ex plus -.5ex minus -.5ex,
+    afterskip=1ex plus .1ex,
+]{section}
 
 \RedeclareSectionCommands[
-  beforeskip=-1ex plus -.5ex minus -.5ex,
-  afterskip=.5ex plus .1ex,
-  ]{subsection,subsubsection}
+    beforeskip=-1ex plus -.5ex minus -.5ex,
+    afterskip=.5ex plus .1ex,
+]{subsection,subsubsection}
 
 \RedeclareSectionCommands[
-  beforeskip=-1ex plus -.5ex minus -.5ex,
-  afterskip=-1em,
-  ]{paragraph,subparagraph}
+    beforeskip=-1ex plus -.5ex minus -.5ex,
+    afterskip=-1em,
+]{paragraph,subparagraph}
 
 \ifcase\uobthesis@secnumpos
     % margin
