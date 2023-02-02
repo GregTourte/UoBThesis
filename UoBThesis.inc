@@ -74,12 +74,16 @@
 %\newcommand*{\dedication}[1]{\gdef\@dedication{#1}}
 %\newkomafont{dedication}{\normalfont\normalsize}
 %
-\newcommand*{\@abstract}{}
-\newcommand*{\abstract}[1]{\gdef\@abstract{#1}}
+\newcommand{\@colophon}{}
+\newcommand{\colophon}[1]{\gdef\@colophon{#1}}
+\newkomafont{colophon}{\normalfont\normalsize}
+%
+\newcommand{\@abstract}{}
+\newcommand{\abstract}[1]{\gdef\@abstract{#1}}
 \newkomafont{abstract}{\normalfont\normalsize}
 
-\newcommand*{\@acknowledgements}{}
-\newcommand*{\acknowledgements}[1]{\gdef\@acknowledgements{#1}}
+\newcommand{\@acknowledgements}{}
+\newcommand{\acknowledgements}[1]{\gdef\@acknowledgements{#1}}
 \newkomafont{acknowledgements}{\normalfont\normalsize}
 
 \newcommand{\uob@front@declaration@text}{%
