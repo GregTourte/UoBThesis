@@ -47,7 +47,7 @@
     
 \RequirePackage{scrhack}
 \RequirePackage{scrlayer-scrpage}
-\RequirePackage {xcolor}
+\RequirePackage{xcolor}
 \RequirePackage{mathtools}
 %\PassOptionsToPackage{pdfa}{hyperref}
 \ifuob@uobthesis@print\else
@@ -59,7 +59,7 @@
 \ifluatex
 % Loading LuaTeX spefic packages
     %\RequirePackage {fontspec}
-    \RequirePackage[math-style=TeX]{unicode-math}
+    \RequirePackage[math-style = TeX]{unicode-math}
     % required to be loaded before microtype to fix a bug in the version
     % shipped with TeXLive 2018 a revised version of microtype with a fix has
     % been release on 2019-02-28.  Since the date ckeck requires the package to
@@ -159,7 +159,7 @@
 \RequirePackage{graphicx}
 \graphicspath{{Images}}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
-\RequirePackage [nodisplayskipstretch]{setspace} %onehalfspacing or doublespacing are the options here
+\RequirePackage[nodisplayskipstretch]{setspace} %onehalfspacing or doublespacing are the options here
 %\setstretch{1.20}
 %\RequirePackage [final]{changes}
 \RequirePackage{multicol}
@@ -167,7 +167,7 @@
 \RequirePackage{booktabs}
 %\RequirePackage [begintext={``} , endtext={''},vskip={\topsep}]{quoting}
 \RequirePackage{quoting}
-\PassOptionsToPackage{hyphens,obeyspaces,spaces}{url}
+\PassOptionsToPackage{hyphens, obeyspaces, spaces}{url}
 \RequirePackage{etoolbox}
 \RequirePackage{ragged2e}
 \RequirePackage{relsize}
@@ -190,7 +190,8 @@
 
 %\RequirePackage {float}
 \RequirePackage[heightadjust = all, floatrowsep = qquad, captionskip = 7.5pt]{floatrow}
-\RequirePackage {caption,subcaption}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
 \floatsetup{font = small}
 \floatsetup[table]{style = plaintop}
 \floatsetup[subfigure]{captionskip = 7.5pt, rowpostcode = captionskip}
@@ -244,17 +245,9 @@
 \else
     \RequirePackage{hyperref}
 \fi
-%\RequirePackage{algorithm}
-%\RequirePackage{algorithmicx}
-%\RequirePackage{algpseudocode} 
 
-\RequirePackage{pgfplotstable}
-\pgfplotsset{compat = newest}
-\usetikzlibrary{external, arrows, calc, positioning}
-\ifluatex
-%\tikzset{external/system call={lualatex \tikzexternalcheckshellescape -shell-escape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
-\fi
-%\tikzexternalize[prefix=figures/]
+\RequirePackage{tikz}
+\usetikzlibrary{arrows, calc, positioning}
 
 \KOMAoptions{
     fontsize      = 12pt,
@@ -811,6 +804,30 @@
 \else
     % else (do nothing)
 \fi
+
+% tocloft should be single-sided
+% adapted from https://tex.stackexchange.com/a/254414/12332
+
+\newif\if@tocloft
+\gpreto\tableofcontents{\@toclofttrue}
+\gappto\tableofcontents{\@tocloftfalse}
+\gpreto\listoffigures{\@toclofttrue}
+\gappto\listoffigures{\@tocloftfalse}
+\gpreto\listoftables{\@toclofttrue}
+\gappto\listoftables{\@tocloftfalse}
+\gpreto\printglossary{\@toclofttrue}
+%\gappto\printglossary{\@tocloftfalse}
+\gappto\mainmatter{\@tocloftfalse}
+\let\ltx@outputpage\@outputpage
+\def\@outputpage{%
+  \if@tocloft
+    \@twosidefalse\@mparswitchfalse
+    %\ltx@outputpage\shipout\vbox{}% if you want to have the empty pages unnumbered
+    \ltx@outputpage\shipout\vbox{\stepcounter{page}}% if you want to have the empty pages "silently" numbered
+  \else
+    \@twosidetrue\@mparswitchtrue
+    \ltx@outputpage
+  \fi}
 
 % vim: ft=tex ts=4 sw=4 et
 % vim600: fdl=0 fdm=marker fdc=3
