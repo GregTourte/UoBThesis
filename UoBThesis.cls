@@ -387,7 +387,7 @@
     minbibnames  = 2,
     ibidtracker  = true,
     block        = space,
-    eprint       = false,
+    eprint       = true,
 %    defernumbers = false,
     date         = year,
     urldate      = iso,
@@ -400,6 +400,7 @@
         \map{
             \step[fieldsource = doi, final]
             \step[fieldset = url, null]
+            \step[fieldset = eprint, null]
         }
     }
 }
