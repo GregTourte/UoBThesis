@@ -773,9 +773,11 @@
 %
 %}}}
 
-\setkomafont{disposition}{\sffamily\mdseries}
-\addtokomafont{chapterentry}{\bfseries}
-\addtokomafont{paragraph}{\bfseries}
+\setkomafont{disposition}{\sffamily}
+\addtokomafont{chapterentry}{\bfseries\boldmath}
+\addtokomafont{section}{\bfseries\boldmath}
+\addtokomafont{subsection}{\mdseries\itshape}
+\addtokomafont{paragraph}{\mdseries}
 
 \setcounter{secnumdepth}{\subsubsectionnumdepth}
 
