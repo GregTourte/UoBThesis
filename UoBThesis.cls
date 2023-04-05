@@ -202,7 +202,7 @@
 %   justification = centerlast,
     font          = {small, sf},
     labelfont     = {small, sf, it},
-    width         = .75\linewidth,
+    width         = .95\linewidth,
 }
 \captionsetup[subfigure]{
     font          = {footnotesize, sf},
@@ -213,7 +213,12 @@
 %\renewcommand\thesubfigure{(\alph{subfigure})}
 
 
-\RequirePackage[mode = tex]{standalone}
+\RequirePackage{standalone}
+\standaloneconfig{
+    mode = tex,
+    obeyclassoptions = false,
+    subpreambles = false,
+}
 \RequirePackage{xstring}
 
 \newcommand{\includestandalonewithpath}[2][]{%
