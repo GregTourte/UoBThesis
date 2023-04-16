@@ -16,7 +16,7 @@
 
 \ifluatex
     \pdfvariable minorversion 6
-    \pdfvariable pageattr {/Group << /S /Transparency /I true /CS /DeviceCMYK>>}
+    \pdfvariable pageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
  %   \pdfextension catalog{%
  %       /OutputIntents [ <<
  %       /Type /OutputIntent
@@ -28,7 +28,7 @@
  %   }
 \else\ifpdf
     \pdfminorversion 6
-    \pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceCMYK>>}
+    \pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
 \fi\fi
 
 %% PRELIMINARY DECLARATIONS
