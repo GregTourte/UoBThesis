@@ -44,7 +44,6 @@
     \fi\fi
 \fi
 
-    
 \RequirePackage{scrhack}
 \RequirePackage{scrlayer-scrpage}
 \RequirePackage{xcolor}
@@ -676,8 +675,12 @@
 %
     \ifx\@abstract\@empty \else {
         \chapter{Abstract}
+        \begingroup
+        \KOMAoption{parskip}{half*}
 
         \@abstract
+
+        \endgroup
     }
     \fi
     %}}}
@@ -708,7 +711,12 @@
 \ifx\@acknowledgements\@empty \else {
     \chapter{Acknowledgements}
 
-    \@acknowledgements\par
+    \begingroup
+    \KOMAoption{parskip}{half*}
+
+    \@acknowledgements
+
+    \endgroup
 }
 \fi
 %}}}
@@ -732,7 +740,7 @@
     \parindent=0pt%
     \topskip=0pt%
     \baselineskip=0pt%
-    
+
     \begin{tikzpicture}[
         remember picture,
         every node/.style = {
