@@ -518,24 +518,24 @@
 
 %{{{ Definition of UoB Colours and Logos
 % Primary brand colours
-\definecolor{UoBRed}{cmyk}{0,.91,.72,.23}
-\definecolor{UoBCoolGrey}{cmyk}{.07,.91,.72,.23}
+\definecolor{UoBRed}{RGB/cmyk}{171,31,45/0,.91,.72,.23}
+\definecolor{UoBCoolGrey}{RGB/cmyk}{227,230,229/.07,.91,.72,.23}
 
 % Secondary Colours
 % Bright Colours
-\definecolor{UoBBrightAqua}{cmyk}{.81,0,.36,0}
-\definecolor{UoBBrightBlue}{cmyk}{.69,0,.13,0}
-\definecolor{UoBBrightOrange}{cmyk}{0,.65,.95,0}
-\definecolor{UoBBrightPurple}{cmyk}{.53,.61,0,0}
-\definecolor{UoBBrightPink}{cmyk}{.04,.88,0,0}
-\definecolor{UoBBrightLime}{cmyk}{.34,0,1.00,0}
+\definecolor{UoBBrightAqua}{RGB/cmyk}{0,192,181/.81,0,.36,0}
+\definecolor{UoBBrightBlue}{RGB/cmyk}{12,198,222/.69,0,.13,0}
+\definecolor{UoBBrightOrange}{RGB/cmyk}{238,114,25/0,.65,.95,0}
+\definecolor{UoBBrightPurple}{RGB/cmyk}{146,120,209/.53,.61,0,0}
+\definecolor{UoBBrightPink}{RGB/cmyk}{224,36,154/.04,.88,0,0}
+\definecolor{UoBBrightLime}{RGB/cmyk}{190,214,0/.34,0,1.00,0}
 % Dark Colours
-\definecolor{UoBDarkAqua}{cmyk}{1,.17,.33,.66}
-\definecolor{UoBDarkBlue}{cmyk}{1,.70,.08,.54}
-\definecolor{UoBDarkOrange}{cmyk}{.13,.83,1.,.62}
-\definecolor{UoBDarkPurple}{cmyk}{.81,1.0,.06,.35}
-\definecolor{UoBDarkPink}{cmyk}{.33,1.0,.09,.45}
-\definecolor{UoBDarkLime}{cmyk}{.58,.09,.95,.64}
+\definecolor{UoBDarkAqua}{RGB/cmyk}{0,67,79/,1,.17,.33,.66}
+\definecolor{UoBDarkBlue}{RGB/cmyk}{0,47,95/1,.70,.08,.54}
+\definecolor{UoBDarkOrange}{RGB/cmyk}{109,38,1/.13,.83,1.,.62}
+\definecolor{UoBDarkPurple}{RGB/cmyk}{66,20,95/.81,1.0,.06,.35}
+\definecolor{UoBDarkPink}{RGB/cmyk}{119,32,89/.33,1.0,.09,.45}
+\definecolor{UoBDarkLime}{RGB/cmyk}{83,104,43/.58,.09,.95,.64}
 
 % UoB logos
 % from https://github.com/dawbarton/UoB-beamer-theme/
