@@ -1,19 +1,22 @@
 %
-% UoB-Thesis/UoBThesis.inc
+% UoB-Thesis/UoBThesis-options.inc
 %
-% Developed by Greg Tourte <artourter@gmail.com>
-% Copyright (c) 2018 The University of Bristol
+% Developed by Greg Tourte <greg.tourte@gmail.com>
+% Copyright (c) 2018-2024 The University of Bristol
 % All rights reserved.
 %
 % Changelog:
 % 30/07/2018 - created
 %
+
+\ProvidesFile{UoBThesis-options.def}[2024/04/11 v1.0 University of Bristol Thesis class option definitions] 
+
 \RequirePackage{xkeyval}
 
 \define@boolkey[uob]{uobthesis}{cclicense}[true]{}
 \setkeys[uob]{uobthesis}{cclicense=false}
 
-\define@choicekey*[uob]{uobthesis}{logo}[\val\logonr]{none,full,crest}[full]{\def\uobthesis@logo{\logonr}}
+\define@choicekey*[uob]{uobthesis}{logo}[\val\logonr]{none,full,crest,oldfull,oldcrest}[full]{\def\uobthesis@logo{\logonr}}
 \setkeys[uob]{uobthesis}{logo=full}
 
 \define@choicekey*[uob]{uobthesis}{spacing}[\val\spacingnr]{single,onehalf,double}[double]{\def\uobthesis@spacing{\spacingnr}}
