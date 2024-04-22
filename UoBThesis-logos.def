@@ -13,7 +13,7 @@
 %              change definition to `full` to use UoBBlack for text.
 %
 
-\ProvidesFile{UoBThesis-logos.def}[2023/04/12 v1.1 University of Bristol Logos]
+\ProvidesFile{UoBThesis-logos.def}[2024/04/22 v1.1b University of Bristol Logos]
 
 %{{{ Definition of UoB Colours and Logos
 % Primary brand colours
