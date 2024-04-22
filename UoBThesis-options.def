@@ -7,16 +7,17 @@
 %
 % Changelog:
 % 30/07/2018 - created
-%
+% 2024-04-11 - change logo options to include new 2024 logo
+% 2024-04-22 - rename logo option for 2003 logo
 
-\ProvidesFile{UoBThesis-options.def}[2024/04/11 v1.0 University of Bristol Thesis class option definitions] 
+\ProvidesFile{UoBThesis-options.def}[2024/04/22 v1.2 University of Bristol Thesis class option definitions] 
 
 \RequirePackage{xkeyval}
 
 \define@boolkey[uob]{uobthesis}{cclicense}[true]{}
 \setkeys[uob]{uobthesis}{cclicense=false}
 
-\define@choicekey*[uob]{uobthesis}{logo}[\val\logonr]{none,full,crest,oldfull,oldcrest}[full]{\def\uobthesis@logo{\logonr}}
+\define@choicekey*[uob]{uobthesis}{logo}[\val\logonr]{none,full,crest,full2003,crest2003}[full]{\def\uobthesis@logo{\logonr}}
 \setkeys[uob]{uobthesis}{logo=full}
 
 \define@choicekey*[uob]{uobthesis}{spacing}[\val\spacingnr]{single,onehalf,double}[double]{\def\uobthesis@spacing{\spacingnr}}

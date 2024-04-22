@@ -7,9 +7,10 @@
 %
 % Changelog:
 % 30/07/2018 - created
-%
+% 2024-04-22 - reflect change in logo definition name
+
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{UoBThesis}[2024/04/11 v1.10 University of Bristol PhD Thesis Class]
+\ProvidesClass{UoBThesis}[2024/04/22 v1.11 University of Bristol PhD Thesis Class]
 
 
 \RequirePackage{iftex}
@@ -545,16 +546,16 @@
                 % none
             \or % full
                 \vskip \fill
-                {\resizebox{50mm}{!}{\tikz\pic{newlogo};}}
+                {\resizebox{50mm}{!}{\tikz\pic{logo2024};}}
             \or % crest
                 \vskip \fill
-                {\resizebox{25mm}{!}{\tikz\pic[fill = UoBRed]{newlogo base image};}}
+                {\resizebox{25mm}{!}{\tikz\pic[fill = UoBRed]{logo2024 base image};}}
             \or % oldfull
                 \vskip \fill
-                {\resizebox{50mm}{!}{\tikz\pic{logo};}}
+                {\resizebox{50mm}{!}{\tikz\pic{logo2003};}}
             \or % oldcrest
                 \vskip \fill
-                {\resizebox{25mm}{!}{\tikz\pic[fill = UoBRed]{logo base image};}}
+                {\resizebox{25mm}{!}{\tikz\pic[fill = UoBRed]{logo2003 base image};}}
         \else
         \fi
         \vskip \fill
