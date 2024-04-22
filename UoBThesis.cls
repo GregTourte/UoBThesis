@@ -1,15 +1,15 @@
 %
 % UoB-Thesis/UoBThesis.cls
 %
-% Developed by Greg Tourte <greg.tourte@gmail.com>
-% Copyright (c) 2018 The University of Bristol
+% Developed by Gregory J. L. Tourte <greg.tourte@gmail.com>
+% Copyright (c) 2018-2024
 % All rights reserved.
 %
 % Changelog:
 % 30/07/2018 - created
 %
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{UoBThesis}[2024/04/11 University of Bristol PhD Thesis Class]
+\ProvidesClass{UoBThesis}[2024/04/11 v1.10 University of Bristol PhD Thesis Class]
 
 
 \RequirePackage{iftex}
