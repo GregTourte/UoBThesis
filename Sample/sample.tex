@@ -1,0 +1,51 @@
+%arara: lualatex
+%arara: lualatex
+%arara: lualatex
+%arara: clean: { extensions: [aux,bcf,lof,log,lot,run.xml,toc] }
+
+\documentclass[
+        cclicense,
+        spacing = double,
+    ]{UoBThesis}
+
+\usepackage[math]{blindtext}
+\usepackage{kantlipsum}
+
+\title{Your Very Important Research}
+\author{Joe Bloggs}
+\Degree{Doctor of Philosophy}
+\faculty{Experimental Serendipity}
+\school{School of Cruel and Unusual Geography}
+\submitted{2015-10-21}
+\wordcount{12345}
+
+\abstract{\kant[1-2]}
+\acknowledgements{\kant[3-4]}
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Figures and Tables}
+
+\listoffigures
+
+\listoftables
+
+\mainmatter
+
+\Blinddocument
+
+\Blinddocument
+
+\appendix
+
+\blinddocument
+
+\backmatter
+
+\end{document}
