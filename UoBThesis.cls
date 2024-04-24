@@ -8,9 +8,10 @@
 % Changelog:
 % 30/07/2018 - created
 % 2024-04-22 - reflect change in logo definition name
+% 2024-04-24 - fix compilation with pdflatex and xelatex
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{UoBThesis}[2024/04/22 v1.11 University of Bristol PhD Thesis Class]
+\ProvidesClass{UoBThesis}[2024/04/24 v1.12 University of Bristol PhD/MSc Thesis Class]
 
 
 \RequirePackage{iftex}
