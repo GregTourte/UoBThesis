@@ -88,34 +88,37 @@
             ItalicFont   = * Italic,
             RawFeature   = {liga, calt, clig}
         ]
+        \defaultfontfeatures{Scale = {MatchLowercase}}
+        \setsansfont {LibertinusSans}[
+            Numbers = {Proportional,OldStyle} ]
         \setmathfont{MinionMath}%[Colour = blue]
         \setmathfont{Libertinus Math}[range = {{"0028-"0029},{"02C6-"02C7}}]%, Colour = red]
         \def\MT@warn@unknown{}
     \else\ifuob@uobthesis@minion
         \setmainfont {Minion Pro}[
-            Numbers = {Proportional,OldStyle},
-            BoldFont= * bold,
+            Numbers  = {Proportional,OldStyle},
+            BoldFont = * bold,
+        ]
+        \defaultfontfeatures{Scale = {MatchLowercase}}
+        \setsansfont {LibertinusSans}[
+            Numbers = {Proportional,OldStyle}
         ]
         \setmathfont{MinionMath}%[Colour = blue]
         \setmathfont{Libertinus Math}[range = {"0028-"0029}]%, Colour = red]
         \def\MT@warn@unknown{}
     \else
-        \setmainfont {Libertinus Serif}[
-            Numbers = {Proportional,OldStyle},
-            BoldFont= * bold ]
-        \setmathfont{Libertinus Math}
+        \usepackage[osf,p]{libertinus-otf}
+        \defaultfontfeatures{Scale = {MatchLowercase}}
     \fi\fi
-    \defaultfontfeatures{Scale = {MatchLowercase}}
-    \setsansfont {LibertinusSans}[
-        Numbers = {Proportional,OldStyle} ]
     \setmonofont {InconsolataN}[
-        ItalicFont = *,
+        ItalicFont     = *,
         ItalicFeatures = FakeSlant,
-        RawFeature = -tlig;-trep,
-        StylisticSet={1,3} ]
+        RawFeature     = -tlig;-trep,
+        StylisticSet   = {1,3}
+    ]
 
     \RequirePackage {polyglossia}
-    \setdefaultlanguage[variant=british]{english}
+    \setdefaultlanguage[variant = british]{english}
     \RequirePackage [english]{selnolig}
     \RequirePackage {luatextra}
 %
@@ -124,24 +127,17 @@
     \RequirePackage[math-style=TeX]{unicode-math}
     \RequirePackage {microtype}
     \defaultfontfeatures{Ligatures = {TeX}}
-    \setmainfont {Libertinus Serif}[
-        Numbers = {Proportional,OldStyle},
-        BoldFont= * bold ]
+    \usepackage[osf,p]{libertinus-otf}
     \defaultfontfeatures{Scale = {MatchLowercase}}
-    \setsansfont {Libertinus Sans}[
-        Numbers = {Proportional,OldStyle} ]
     \setmonofont {InconsolataN}[
-        ItalicFont = *,
+        UprightFont    = *-Regular,
+        ItalicFont     = *-Regular,
         ItalicFeatures = FakeSlant,
-        RawFeature = -tlig;-trep,
-        StylisticSet={1,3} ]
-    \newfontfamily\liningroman{Libertinus Serif}[
-        Numbers = {Proportional,Lining},
-        Ligatures = {TeX},
-        Scale = {MatchLowercase},
-        RawFeature = {+case},
-        ]
-    \setmathfont{Libertinus Math}
+        BoldFont       = *-Bold,
+        Extension      = .otf,
+        RawFeature     = -tlig;-trep,
+        StylisticSet   = {1,3}
+    ]
 
     \RequirePackage {polyglossia}
     \setdefaultlanguage[variant = british]{english}
@@ -151,7 +147,7 @@
     \RequirePackage[mono = false]{libertinus}
     \RequirePackage{libertinust1math}
     \RequirePackage[narrow, varqu, varl]{inconsolata}
-    \RequirePackage[british]{babel}
+    \RequirePackage[english]{babel}
 \fi\fi
 
 \RequirePackage{needspace}
@@ -160,6 +156,7 @@
 \graphicspath{{Images}}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 \RequirePackage[nodisplayskipstretch]{setspace} %onehalfspacing or doublespacing are the options here
+\RequirePackage{setspaceenhanced}
 %\setstretch{1.20}
 %\RequirePackage [final]{changes}
 \RequirePackage{multicol}
@@ -173,7 +170,7 @@
 \RequirePackage{relsize}
 
 \RequirePackage[version=4]{mhchem}
-\ifPDFTeX\else 
+\iftutex
     \typeout{ UoBThesis: DEBUG: I am not running pdftex... }
     \mhchemoptions{%
         textfontcommand = \addfontfeature{Numbers = {Lining, Monospaced}, RawFeature = {-onum,-pnum,+tnum,+case}},%
@@ -445,7 +442,7 @@
     \BeforeBeginEnvironment{minted}{\begin{singlespace}}
     \AfterEndEnvironment{minted}{\end{singlespace}}
     \renewcommand{\theFancyVerbLine}{
-    \ifluatex
+    \iftutex
         %\fontspec[Numbers = {Lining,Monospaced}]{Libertinus Serif}
         \addfontfeature{Numbers={Monospaced,Lining}, RawFeature = {+case}}
     \fi
@@ -469,6 +466,7 @@
 \fi
 
 \gappto\UrlBreaks{\UrlOrds}
+\iftutex
 \gappto\UrlSpecials{%
     \do\`{\mbox{\UrlFont\char`\`}}%
     \do\'{\mbox{\UrlFont\char`\'}}%
@@ -476,6 +474,7 @@
     \do\l{\mbox{\UrlFont\char`\l}}%
     \do\0{\mbox{\UrlFont\char`\0}}%
 }
+\fi
 
 %\patchcmd{\@afterheading}%
 %    {\clubpenalty \@M}{\clubpenalties 3 \@M \@M 0}{}{}
@@ -530,7 +529,7 @@
 
 % Title
         \centering
-        \vglue 3cm 
+        \vglue 3cm
 
         \begin{varwidth}{\uobtitlecoverwidth}
             \centering
@@ -579,7 +578,7 @@
         \vskip 3cm
         \ifx\@wordcount\@empty
             \mbox{}
-        \else 
+        \else
             {\usekomafont{wordcount}\raggedleft Word count: \num{\@wordcount} words\par}
             %%\input{wordcount/wordcount} words
         \fi
@@ -678,7 +677,11 @@
 % Chapter title formatting
 %
 \renewcommand*{\chapterformat}{%
-    \mbox{\liningnums{\thechapter}}%
+    \iftutex
+        \mbox{\liningnums{\thechapter}}%
+    \else
+        \mbox{\LibertinusSansLF{\thechapter}}%
+    \fi
 }
 \renewcommand*{\chapterheadmidvskip}{}
 
@@ -699,16 +702,16 @@
         chptnum/.style = {
  %           draw,
  %           color = white,
-            text = gray,
-            fill = white,
+            text   = gray,
+            fill   = white,
             overlay,
             anchor = south east,
         },
         chpttitle/.style = {
-            text width = \textwidth,
-            inner xsep = 0,
-            inner ysep = 13,
-            anchor = north west,
+            text width            = \textwidth,
+            inner xsep            = 0,
+            inner ysep            = 13,
+            anchor                = north west,
             execute at begin node = \vphantom{bg}
         }
     ]
