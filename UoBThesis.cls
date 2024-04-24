@@ -9,9 +9,10 @@
 % 30/07/2018 - created
 % 2024-04-22 - reflect change in logo definition name
 % 2024-04-24 - fix compilation with pdflatex and xelatex
+%              fix compilation with plain latex (dvi mode)
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{UoBThesis}[2024/04/24 v1.12 University of Bristol PhD/MSc Thesis Class]
+\ProvidesClass{UoBThesis}[2024/04/24 v1.12b University of Bristol PhD/MSc Thesis Class]
 
 
 \RequirePackage{iftex}
@@ -155,7 +156,9 @@
 
 \RequirePackage{graphicx}
 \graphicspath{{Images}}
-\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\ifpdf
+    \DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\fi
 \RequirePackage[nodisplayskipstretch]{setspace} %onehalfspacing or doublespacing are the options here
 \RequirePackage{setspaceenhanced}
 %\setstretch{1.20}
