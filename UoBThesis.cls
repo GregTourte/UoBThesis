@@ -399,6 +399,10 @@
     urldate      = iso,
 }
 \DeclareNameAlias{default}{family-given}
+\DeclarePrintbibliographyDefaults{
+    title = References,
+    heading = bibintoc
+}
 \setcounter{biburlnumpenalty}{100}
 \addto\bibfont{\smaller} % makes bibliography font smalled as per typography guidelines
 \DeclareSourcemap{
