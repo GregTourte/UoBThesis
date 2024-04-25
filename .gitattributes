@@ -1,4 +1,4 @@
 *.cls  diff=tex
-*.inc  diff=tex
+*.inc  linguist-language=TeX
 *.sty  diff=tex
-*.def  diff=tex linguist-language=TeX
+*.def  linguist-language=TeX
