@@ -1,5 +1,5 @@
 %
-% UoB-Thesis/UoBThesis-options.inc
+% UoB-Thesis/UoBThesis-options.def
 %
 % Developed by Gregory J. L. Tourte <greg.tourte@gmail.com>
 % Copyright (c) 2018-2024
@@ -109,5 +109,5 @@ of, others, is indicated as such.
 Any views expressed in the thesis are those of the author.%
 }
 
-% vim: ft=tex ts=4 sw=4 et
+% vim: set ft=tex:ts=4:sw=4:et
 % vim600: fdl=0 fdm=marker fdc=3 spl=en_gb spell
