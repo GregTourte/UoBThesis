@@ -10,10 +10,10 @@
 % 2024-04-22 - reflect change in logo definition name
 % 2024-04-24 - fix compilation with pdflatex and xelatex
 %              fix compilation with plain latex (dvi mode)
+% 2024-05-22 - Fix compilation with subfiles and lualatex
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{UoBThesis}[2024/04/24 v1.12b University of Bristol PhD/MSc Thesis Class]
-
+\ProvidesClass{UoBThesis}[2024/05/22 v1.20 University of Bristol PhD/MSc Thesis Class]
 
 \RequirePackage{iftex}
 
@@ -78,23 +78,28 @@
     %
     \defaultfontfeatures{Ligatures = {TeX}}
     \ifuob@uobthesis@minionthree
-        \setmainfont {Minion 3}[
-            Numbers      = {Proportional,OldStyle},
-            SizeFeatures = {
-                { Size   = -9.9, Font = Minion 3 Caption },
-                { Size   = 9.9-13.9 },
-                { Size   = 13.9-25.9, Font = Minion 3 Subhead },
-                { Size   = 25.9-, Font = Minion 3 Display },
-            },
-            BoldFont     = * Bold,
-            ItalicFont   = * Italic,
-            RawFeature   = {liga, calt, clig}
-        ]
+        \setmainfont {Minion3}%[
+%            Extension    = .otf,
+%            Numbers      = {Proportional,OldStyle},
+%            SizeFeatures = {
+%                { Size   = -9.9, Font = Minion3Caption },
+%                { Size   = 9.9-13.9 },
+%                { Size   = 13.9-25.9, Font = Minion3Subhead },
+%                { Size   = 25.9-, Font = Minion3Display },
+%            },
+%            UprightFont  = *-Regular,
+%            BoldFont     = *-Bold,
+%            ItalicFont   = *-Italic,
+%            RawFeature   = {liga, calt, clig}
+%        ]
         \defaultfontfeatures{Scale = {MatchLowercase}}
         \setsansfont {LibertinusSans}[
-            Numbers = {Proportional,OldStyle} ]
-        \setmathfont{MinionMath}%[Colour = blue]
-        \setmathfont{Libertinus Math}[range = {{"0028-"0029},{"02C6-"02C7}}]%, Colour = red]
+            Numbers = {Proportional,OldStyle}
+        ]
+        \setmathfont{MinionMath}
+        \setmathfont{LibertinusMath}[
+            range = {{"0028-"0029},{"02C6-"02C7}}
+        ]
         \def\MT@warn@unknown{}
     \else\ifuob@uobthesis@minion
         \setmainfont {Minion Pro}[
@@ -105,8 +110,10 @@
         \setsansfont {LibertinusSans}[
             Numbers = {Proportional,OldStyle}
         ]
-        \setmathfont{MinionMath}%[Colour = blue]
-        \setmathfont{Libertinus Math}[range = {"0028-"0029}]%, Colour = red]
+        \setmathfont{MinionMath}
+        \setmathfont{LibertinusMath}[
+            range = {"0028-"0029}
+        ]
         \def\MT@warn@unknown{}
     \else
         \usepackage[osf,p]{libertinus-otf}
@@ -159,13 +166,17 @@
 \ifpdf
     \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 \fi
+\RequirePackage{tikz}
+\usetikzlibrary{arrows, calc, positioning}
+
 \RequirePackage[nodisplayskipstretch]{setspace} %onehalfspacing or doublespacing are the options here
 \RequirePackage{setspaceenhanced}
-%\setstretch{1.20}
+
 %\RequirePackage [final]{changes}
 \RequirePackage{multicol}
 \RequirePackage{multirow}
 \RequirePackage{booktabs}
+
 %\RequirePackage [begintext={``} , endtext={''},vskip={\topsep}]{quoting}
 \RequirePackage{quoting}
 \PassOptionsToPackage{hyphens, obeyspaces, spaces}{url}
@@ -189,7 +200,6 @@
 \setlist[enumerate]{leftmargin = *}
 \RequirePackage {varwidth}
 
-%\RequirePackage {float}
 \RequirePackage[heightadjust = all, floatrowsep = qquad, captionskip = 7.5pt]{floatrow}
 \RequirePackage{caption}
 \RequirePackage{subcaption}
@@ -251,9 +261,6 @@
 \else
     \RequirePackage{hyperref}
 \fi
-
-\RequirePackage{tikz}
-\usetikzlibrary{arrows, calc, positioning}
 
 \KOMAoptions{
     fontsize      = 12pt,
