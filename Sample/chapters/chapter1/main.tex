@@ -1,0 +1,27 @@
+% vim:ft=tex ts=4 sw=4 et:
+%
+% main
+%
+% arara: xelatex: {shell: true}
+%% arara: biber
+%% arara: makeglossaries
+% arara: xelatex: {shell: true}
+% arara: xelatex: {shell: true}
+% arara: clean: {extensions: [aux, toc, bbl, run.xml, bcf, blg, out]}
+
+%
+\documentclass[../../sample]{subfiles}
+
+\begin{document}
+
+\graphicspath{{images/}}
+
+\ifSubfilesClassLoaded{
+    \mainmatter
+    \setcounter{chapter}{0} % this will be chapter so set chapter counter to the one before
+}{}
+
+\Blinddocument
+
+\end{document}
+

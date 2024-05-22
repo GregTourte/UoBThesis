@@ -1,3 +1,4 @@
+%arara: clean: { extensions: [aux,bbl,bcf,blg,lof,log,lot,run.xml,toc] }
 %arara: xelatex
 %arara: biber
 %arara: xelatex
@@ -11,8 +12,11 @@
 
 \usepackage[math]{blindtext}
 \usepackage{kantlipsum}
+\usepackage{fmtcount}
 
-\addbibresource{sample.bib}
+\usepackage{subfiles}
+
+\addbibresource{\subfix{sample.bib}}
 
 \title{Your Very Important Research}
 \author{Joe Bloggs}
@@ -42,9 +46,9 @@
 
 \mainmatter
 
-\Blinddocument
+\subfile{chapters/chapter1/main}
 
-\Blinddocument
+\subfile{chapters/chapter2/main}
 
 \appendix
 
